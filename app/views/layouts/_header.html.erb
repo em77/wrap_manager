@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+        data-toggle="collapse" data-target="#navbar-collapse-area"
+        aria-expanded="false">
+        <img alt="FH" src="<%= image_path("https://s3.amazonaws.com/fountainhouse-bucket/fh-logo.jpg") %>">
+      </button>
+      <a class="navbar-brand" id="site_title" href="<%= root_path %>">
+        WRAP Manager
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-area">
+
+      <ul class="nav navbar-nav navbar-right">
+        <% if logged_in? %>
+          <li>
+            <p class="navbar-text">
+              Signed in as <%= current_user.name || current_user.email %>
+            </p>
+          </li>
+
+          <li>
+            <%= link_to "Sign out", logout_path %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Sign in", login_path %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,10 @@
+<% provide(:title, "Reset Password") %>
+
+<%= bootstrap_form_tag url: password_resets_path, method: :post do |f| %>
+  <h4>Please enter your e-mail</h4>
+  <br>
+  <%= f.text_field :email %>
+
+  <%= f.submit "Reset my password", class: "btn btn-primary" %>
+
+<% end %>

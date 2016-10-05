@@ -1,0 +1,18 @@
+<% provide(:title, "User Management") %>
+
+<div class="outer_wrapper">
+  <div class="btn-group">
+    <%= link_to "New User", new_user_path, class: "btn btn-success",
+      id: "new_user_button", method: :get %>
+  </div>
+    <div class="css_table">
+      <div class="css_tbody">
+        <% users.each do |user| %>
+          <div class="css_row">
+            <%= render user %>
+          </div>
+          <hr>
+        <% end %>
+      </div>
+    </div>
+</div>

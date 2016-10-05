@@ -1,0 +1,31 @@
+<% provide(:title, "Choose a New Password") %>
+
+<h2>Choose a New Password</h2>
+<%= bootstrap_form_for user, url: password_reset_path(token),
+  html: {method: :put} do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(user.errors.count, "error") %> prohibited this user from
+          being saved:
+      </h2>
+
+      <ul>
+        <% user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= user.email %>
+
+  <br><br>
+
+  <%= f.password_field :password %>
+
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.submit "Update User", class: "btn btn-primary" %>
+
+<% end %>

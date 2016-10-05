@@ -10,6 +10,11 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+
+gem 'bootstrap-sass'
+gem 'bootstrap_form', '~> 2.4'
+gem 'bootstrap_form_extensions'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -30,6 +35,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 # For authentication
 gem 'sorcery'
+
+# For authorization
+gem 'pundit'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

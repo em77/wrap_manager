@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
+/*
+ *= require bootstrap_form_extensions
+ */
 //= require_tree .
