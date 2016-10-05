@@ -1,0 +1,25 @@
+<%= bootstrap_form_for(client, layout: :horizontal) do |f| %>
+  <% if client.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(client.errors.count, "error") %> prohibited this client
+        from being saved:
+      </p>
+
+      <ul>
+      <% client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :name, label: "Name", required: true %>
+
+  <br>
+
+  <%= f.form_group do %>
+    <%= f.submit "Submit", class: "btn btn-default btn-primary",
+      id: "submit_client" %>
+  <% end %>
+<% end %>

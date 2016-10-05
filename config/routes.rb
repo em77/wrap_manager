@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :users
   resources :user_sessions
   resources :password_resets
+  resources :clients
+  resources :appointments
 
   get "login" => "user_sessions#new", as: :login
   get "logout" => "user_sessions#destroy", as: :logout

@@ -1,0 +1,18 @@
+<% provide(:title, "Client Management") %>
+
+<div class="outer_wrapper">
+  <div class="btn-group">
+    <%= link_to "New Client", new_client_path, class: "btn btn-success",
+      id: "new_client_button", method: :get %>
+  </div>
+    <div class="css_table">
+      <div class="css_tbody">
+        <% clients.each do |client| %>
+          <div class="css_row" id="client_<%= client.id %>">
+            <%= render client %>
+          </div>
+          <hr>
+        <% end %>
+      </div>
+    </div>
+</div>
