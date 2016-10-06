@@ -1,0 +1,14 @@
+<% provide(:title, "Appointment Management") %>
+
+<div class="outer_wrapper">
+  <div class="css_table">
+    <div class="css_tbody">
+      <% appointments.each do |appointment| %>
+        <div class="css_row" id="appointment_<%= appointment.id %>">
+          <%= render appointment %>
+        </div>
+        <hr>
+      <% end %>
+    </div>
+  </div>
+</div>

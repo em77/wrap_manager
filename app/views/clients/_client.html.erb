@@ -2,11 +2,15 @@
   <%= link_to client.name, client %>
 </div>
 <div class="css_cell">
-  <%= client.name %>
+  <div class="btn-group">
+    <%= link_to("New appointment", new_appointment_path(client_id: client.id),
+      class: "btn btn-success") %>
+  </div>
 </div>
 <div class="css_cell">
   <div class="btn-group">
-    <%= link_to("Edit client", edit_client_path(client), class: "btn btn-info") %>
+    <%= link_to("Edit client", edit_client_path(client),
+      class: "btn btn-info") %>
   </div>
 </div>
 <div class="css_cell">

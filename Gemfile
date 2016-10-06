@@ -14,6 +14,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
 gem 'bootstrap_form', '~> 2.4'
 gem 'bootstrap_form_extensions'
+gem 'date_time_attributes'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

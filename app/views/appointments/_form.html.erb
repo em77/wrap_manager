@@ -1,0 +1,30 @@
+<%= bootstrap_form_for(appointment, layout: :horizontal) do |f| %>
+  <% if appointment.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(appointment.errors.count, "error") %> prohibited
+        this appointment from being saved:
+      </p>
+
+      <ul>
+      <% appointment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2><%= Client.where(client_id: params["client_id"]).name %></h2>
+
+  <%= f.hidden_field :client_id, value: params["client_id"] %>
+
+  <%= f.date_time_picker :start, label: "Start Time", required: true,
+    time_options: { widget: { minute_step: 15, show_seconds: false } } %>
+
+  <br>
+
+  <%= f.form_group do %>
+    <%= f.submit "Submit", class: "btn btn-default btn-primary",
+      id: "submit_appointment" %>
+  <% end %>
+<% end %>
