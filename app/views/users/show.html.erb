@@ -1,15 +1,15 @@
-<% provide(:title, "User") %>
+<% provide(:title, "User Control Panel") %>
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= user.name %>
-</p>
+<%= month_calendar(attribute: :start, end_attribute: :ending,
+  events: appointments) do |date, appointments| %>
 
-<p>
-  <strong>E-mail:</strong>
-  <%= user.email %>
-</p>
+  <%= date.day %>
 
-<%= link_to 'Back', users_path %>
+  <% appointments.each do |appointment| %>
+    <div>
+      <%= appointment.client.name %>
+    </div>
+  <% end %>
+<% end %>

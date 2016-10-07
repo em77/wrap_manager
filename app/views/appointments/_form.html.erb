@@ -21,6 +21,9 @@
   <%= f.date_time_picker :start, label: "Start Time", required: true,
     time_options: { widget: { minute_step: 15, show_seconds: false } } %>
 
+  <%= f.date_time_picker :ending, label: "End Time", required: true,
+    time_options: { widget: { minute_step: 15, show_seconds: false } } %>
+
   <br>
 
   <%= f.form_group do %>

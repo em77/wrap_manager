@@ -3,8 +3,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy, :edit, :update]
   # after_action :verify_authorized
 
-  attr_accessor :user, :users
-  helper_method :user, :users
+  attr_accessor :user, :users, :appointments
+  helper_method :user, :users, :appointments
 
   def zero_users_or_authenticated
     unless User.count == 0 || current_user
@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def show
     # authorize @user
+    @appointments = Appointment.where(user_id: current_user.id)
   end
 
   def destroy
