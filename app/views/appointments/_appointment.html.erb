@@ -6,7 +6,8 @@
 </div>
 <div class="css_cell">
   <div class="btn-group">
-    <%= link_to("Edit appointment", edit_appointment_path(appointment),
+    <%= link_to("Edit appointment",
+      edit_appointment_path(appointment, client_id: appointment.client.id),
       class: "btn btn-info") %>
   </div>
 </div>
