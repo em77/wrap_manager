@@ -55,6 +55,9 @@ group :development, :test do
   gem 'shoulda-matchers'
   # Fake data generator for testing
   gem 'faker'
+
+  # Active Record model diagram generation
+  gem 'rails-erd'
 end
 
 group :development do

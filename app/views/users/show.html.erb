@@ -2,6 +2,26 @@
 
 <p id="notice"><%= notice %></p>
 
+<div class="outer-wrapper">
+  <div class="inner-wrapper table-responsive" id="unassigned-table">
+    <table class="table">
+      <tbody>
+        <tr class="info table-row">
+          <td><strong>Referral Name</strong></td>
+          <td><strong>Date Added</strong></td>
+          <td><strong>Assign to Me</strong></td>
+        </tr>
+        <% unassigned_clients.each do |unassigned_client| %>
+          <tr>
+            <%= render partial: "unassigned_row",
+              locals: {client: unassigned_client} %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <%= month_calendar(attribute: :start, end_attribute: :ending,
   events: appointments) do |date, appointments| %>
 

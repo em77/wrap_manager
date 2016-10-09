@@ -10,5 +10,8 @@ Rails.application.routes.draw do
   get "login" => "user_sessions#new", as: :login
   get "logout" => "user_sessions#destroy", as: :logout
 
+  get "/add_user_to_client" => "users#add_user_to_client",
+    as: "add_user_to_client"
+
   root to: "pages#home"
 end

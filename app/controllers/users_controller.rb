@@ -3,8 +3,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy, :edit, :update]
   # after_action :verify_authorized
 
-  attr_accessor :user, :users, :appointments
-  helper_method :user, :users, :appointments
+  attr_accessor :user, :users, :appointments, :unassigned_clients
+  helper_method :user, :users, :appointments, :unassigned_clients
 
   def zero_users_or_authenticated
     unless User.count == 0 || current_user
@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   def show
     # authorize @user
     @appointments = Appointment.where(user_id: current_user.id)
+    @unassigned_clients = Client.where(user_id: nil)
   end
 
   def destroy
@@ -62,6 +63,15 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def add_user_to_client
+    # authorize
+    client = Client.find_by_id(params.require([:client_id]))
+    client.user_id = current_user.id
+    client.save
+    flash[:success] = "#{client.name} has been assigned to you"
+    redirect_to user_path(current_user)
   end
 
   private
