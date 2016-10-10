@@ -4,14 +4,17 @@ class ClientsController < ApplicationController
   before_action :set_referer, only: [:destroy, :edit, :new]
   # after_action :verify_authorized
 
-  attr_accessor :client, :clients
-  helper_method :client, :clients
+  attr_accessor :client, :clients, :client_actions
+  helper_method :client, :clients, :client_actions
 
   def index
     @clients = Client.all
   end
 
   def show
+    @client_actions = ClientAction.where(
+      client_id: client.id).order(
+      "updated_at desc")
   end
 
   def new

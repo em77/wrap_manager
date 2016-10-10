@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :password_resets
   resources :clients
   resources :appointments
+  resources :client_actions
 
   get "login" => "user_sessions#new", as: :login
   get "logout" => "user_sessions#destroy", as: :logout

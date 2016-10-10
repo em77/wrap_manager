@@ -1,0 +1,42 @@
+<%= bootstrap_form_for(client_action, layout: :horizontal) do |f| %>
+  <% if client_action.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(client_action.errors.count, "error") %> prohibited
+        this action from being saved:
+      </p>
+
+      <ul>
+      <% client_action.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :client_id, value: params["client_id"] %>
+
+  <%= f.text_area :notes, label: "Notes" %>
+
+  <%= f.form_group :wrap_action, label: { text: "WRAP Action" } do %>
+    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+    <%= f.radio_button :wrap_action, 0, label: "Open WRAP case",
+      inline: true %>
+    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    <%= f.radio_button :wrap_action, 1, label: "Close WRAP case",
+      inline: true %>
+    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    <%= f.radio_button :wrap_action, 2, label: "Mark WRAP as completed",
+      inline: true %>
+    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+    <%= f.radio_button :wrap_action, 3, label: "None", checked: true,
+      inline: true %>
+  <% end %>
+
+  <br>
+
+  <%= f.form_group do %>
+    <%= f.submit "Save Action", class: "btn btn-default btn-primary",
+      id: "save_client_action", icon: "floppy-disk" %>
+  <% end %>
+<% end %>

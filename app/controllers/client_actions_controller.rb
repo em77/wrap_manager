@@ -16,15 +16,15 @@ class ClientActionsController < ApplicationController
 
   def create
     @client_action = ClientAction.new(client_action_params)
-    @client_action.user = current_user
+    client_action.user_name = current_user.name
 
     if @client_action.valid?
       @client_action.save
-      redirect_to(session.delete(:return_to)),
-        notice: "Action saved successfully")
+      redirect_to session.delete(:return_to),
+        notice: "Action saved successfully"
     else
       flash[:error] = @client_action.errors.full_messages.to_sentence
-      redirect_to(session.delete(:return_to))
+      redirect_to session.delete(:return_to)
     end
   end
 
@@ -37,12 +37,12 @@ class ClientActionsController < ApplicationController
     else
       flash[:error] = "Action update failed"
     end
-    redirect_to(session.delete(:return_to))
+    redirect_to session.delete(:return_to)
   end
 
   def destroy
     client_action.destroy
-    redirect_to(session.delete(:return_to)), notice: "Action deleted"
+    redirect_to session.delete(:return_to), notice: "Action deleted"
   end
 
   private

@@ -1,0 +1,8 @@
+<% provide(:title, "Action") %>
+
+<p>
+  <strong>Notes:</strong>
+  <%= client_action.notes %>
+</p>
+
+<%= link_to "Back", client_path(client_action.client_id) %>
