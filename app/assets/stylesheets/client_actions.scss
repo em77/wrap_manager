@@ -1,3 +1,23 @@
 // Place all the styles related to the client_actions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.open_wrap {
+  color: green;
+}
+
+.closed_wrap {
+  color: red;
+}
+
+.completed_wrap {
+  color: blue;
+}
+
+.bold_text {
+  font-weight: bold;
+}
+
+#wrap_status_choices {
+  display: none;
+}

@@ -41,6 +41,11 @@ gem 'sorcery'
 # For authorization
 gem 'pundit'
 
+# Pagination
+gem 'will_paginate'
+# will_paginate integration with bootstrap
+gem 'will_paginate-bootstrap'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
