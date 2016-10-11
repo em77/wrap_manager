@@ -22,14 +22,36 @@
   </div>
 </div>
 
-<%= month_calendar(attribute: :start, end_attribute: :ending,
-  events: appointments) do |date, appointments| %>
-
-  <%= date.day %>
-
-  <% appointments.each do |appointment| %>
-    <div>
-      <%= appointment.client.name %>
+<div id="calendar_assigned_outer_wrapper">
+  <div id="assigned_client_box">
+    <div class="outer-wrapper">
+      <div class="inner-wrapper table-responsive" id="unassigned-table">
+        <table class="table">
+          <tbody>
+            <div class="bg-info table-row" id="assigned_box_header">
+              <strong>Assigned to Me</strong>
+            </div>
+            <% assigned_clients.each do |assigned_client| %>
+              <tr>
+                <%= render partial: "assigned_row",
+                  locals: {client: assigned_client} %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+
+  <%= month_calendar(attribute: :start, end_attribute: :ending,
+    events: appointments) do |date, appointments| %>
+
+    <%= date.day %>
+
+    <% appointments.each do |appointment| %>
+      <div>
+        <%= appointment.client.name %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>

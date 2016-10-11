@@ -14,5 +14,8 @@ Rails.application.routes.draw do
   get "/add_user_to_client" => "users#add_user_to_client",
     as: "add_user_to_client"
 
+  get "/remove_user_from_client" => "users#remove_user_from_client",
+    as: "remove_user_from_client"
+
   root to: "pages#home"
 end

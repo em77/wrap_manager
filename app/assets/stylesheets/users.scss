@@ -1,1 +1,27 @@
+#assigned_client_box {
+  background-color: #F4F7CB;
+  height: 100%;
+  width: 18%;
+  float: left;
+  margin-left: 1%;
+}
 
+#calendar_assigned_outer_wrapper {
+  height: 538px;
+}
+
+.simple-calendar {
+  float: right;
+  width: 80%;
+}
+
+html, body {
+  height: 100%;
+}
+
+#assigned_box_header {
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

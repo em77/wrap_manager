@@ -3,8 +3,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy, :edit, :update]
   # after_action :verify_authorized
 
-  attr_accessor :user, :users, :appointments, :unassigned_clients
-  helper_method :user, :users, :appointments, :unassigned_clients
+  attr_accessor :user, :users, :appointments, :unassigned_clients,
+    :assigned_clients
+  helper_method :user, :users, :appointments, :unassigned_clients,
+    :assigned_clients
 
   def zero_users_or_authenticated
     unless User.count == 0 || current_user
@@ -22,6 +24,7 @@ class UsersController < ApplicationController
     # authorize @user
     @appointments = Appointment.where(user_id: current_user.id)
     @unassigned_clients = Client.where(user_id: nil)
+    @assigned_clients = Client.where(user_id: current_user.id)
   end
 
   def destroy
@@ -71,6 +74,15 @@ class UsersController < ApplicationController
     client.user_id = current_user.id
     client.save
     flash[:success] = "#{client.name} has been assigned to you"
+    redirect_to user_path(current_user)
+  end
+
+  def remove_user_from_client
+    # authorize
+    client = Client.find_by_id(params.require([:client_id]))
+    client.user_id = nil
+    client.save
+    flash[:error] = "#{client.name} has been unassigned from you"
     redirect_to user_path(current_user)
   end
 
