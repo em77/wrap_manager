@@ -1,10 +1,9 @@
 class UserPolicy
   attr_reader :current_user, :model
 
-  def initialize(current_user, model, client = nil)
+  def initialize(current_user, model)
     @current_user = current_user
     @user = model
-    @client = client
   end
 
   def index?
@@ -33,9 +32,5 @@ class UserPolicy
 
   def create?
     @current_user.supervisor?
-  end
-
-  def remove_user_from_client?
-    @current_user.supervisor? || @current_user.id == @client.user_id
   end
 end

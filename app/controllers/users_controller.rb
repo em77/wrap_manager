@@ -21,24 +21,20 @@ class UsersController < ApplicationController
   end
 
   def show
-    authorize user
     @appointments = Appointment.where(user_id: user.id)
     @unassigned_clients = Client.where(user_id: nil)
     @assigned_clients = Client.where(user_id: user.id)
   end
 
   def destroy
-    authorize user
     user.destroy
     redirect_to users_path, notice: "User deleted"
   end
 
   def edit
-    authorize user
   end
 
   def update
-    authorize user
     if @user.update(user_params)
       flash[:success] = "User updated successfully"
       redirect_to users_path
@@ -71,6 +67,7 @@ class UsersController < ApplicationController
   private
     def set_user
       @user = User.find(params.require(:id))
+      authorize user
     end
 
     def user_params
