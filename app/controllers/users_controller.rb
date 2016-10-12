@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :zero_users_or_authenticated
   before_action :set_user, only: [:show, :destroy, :edit, :update]
-  # after_action :verify_authorized
+  after_action :verify_authorized
 
   attr_accessor :user, :users, :appointments, :unassigned_clients,
     :assigned_clients
@@ -17,28 +17,28 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    # authorize @users
+    authorize users
   end
 
   def show
-    # authorize @user
-    @appointments = Appointment.where(user_id: current_user.id)
+    authorize user
+    @appointments = Appointment.where(user_id: user.id)
     @unassigned_clients = Client.where(user_id: nil)
-    @assigned_clients = Client.where(user_id: current_user.id)
+    @assigned_clients = Client.where(user_id: user.id)
   end
 
   def destroy
-    # authorize @user
+    authorize user
     user.destroy
     redirect_to users_path, notice: "User deleted"
   end
 
   def edit
-    # authorize @user
+    authorize user
   end
 
   def update
-    # authorize @user
+    authorize user
     if @user.update(user_params)
       flash[:success] = "User updated successfully"
       redirect_to users_path
@@ -49,15 +49,15 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    # authorize @user
+    authorize user
   end
 
   def create
     @user = User.new(user_params)
-    # authorize @user
+    authorize user
 
     respond_to do |format|
-      if @user.save
+      if user.save
         format.html { redirect_to @user, notice:
           "User created" }
         format.json { render :show, status: :created, location: @user }
@@ -66,24 +66,6 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def add_user_to_client
-    # authorize
-    client = Client.find_by_id(params.require([:client_id]))
-    client.user_id = current_user.id
-    client.save
-    flash[:success] = "#{client.name} has been assigned to you"
-    redirect_to user_path(current_user)
-  end
-
-  def remove_user_from_client
-    # authorize
-    client = Client.find_by_id(params.require([:client_id]))
-    client.user_id = nil
-    client.save
-    flash[:error] = "#{client.name} has been unassigned from you"
-    redirect_to user_path(current_user)
   end
 
   private

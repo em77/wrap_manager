@@ -51,6 +51,24 @@ class ClientsController < ApplicationController
     redirect_to clients_path, notice: "Client deleted"
   end
 
+  def add_user_to_client
+    # authorize user
+    client = Client.find_by_id(params.require([:client_id]))
+    client.user_id = current_user.id
+    client.save
+    flash[:success] = "#{client.name} has been assigned to you"
+    redirect_to user_path(current_user)
+  end
+
+  def remove_user_from_client
+    client = Client.find_by_id(params.require([:client_id]))
+    # authorize User
+    client.user_id = nil
+    client.save
+    flash[:error] = "#{client.name} has been unassigned from you"
+    redirect_to user_path(current_user)
+  end
+
   private
     def set_client
       @client = Client.find(params.require(:id))

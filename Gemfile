@@ -11,6 +11,8 @@ gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
+gem 'nokogiri', '1.6.8.1'
+
 gem 'bootstrap-sass'
 gem 'bootstrap_form', '~> 2.4'
 gem 'bootstrap_form_extensions'
