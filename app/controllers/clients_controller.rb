@@ -2,13 +2,14 @@ class ClientsController < ApplicationController
   before_action :require_login
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new]
-  # after_action :verify_authorized
+  after_action :verify_authorized, except: :new, :create
 
   attr_accessor :client, :clients, :client_actions
   helper_method :client, :clients, :client_actions
 
   def index
     @clients = Client.all
+    authorize Client
   end
 
   def show
@@ -52,7 +53,6 @@ class ClientsController < ApplicationController
   end
 
   def add_user_to_client
-    # authorize user
     client = Client.find_by_id(params.require([:client_id]))
     client.user_id = current_user.id
     client.save
@@ -62,7 +62,7 @@ class ClientsController < ApplicationController
 
   def remove_user_from_client
     client = Client.find_by_id(params.require([:client_id]))
-    # authorize User
+    authorize client
     client.user_id = nil
     client.save
     flash[:error] = "#{client.name} has been unassigned from you"
@@ -72,6 +72,7 @@ class ClientsController < ApplicationController
   private
     def set_client
       @client = Client.find(params.require(:id))
+      authorize client
     end
 
     def client_params

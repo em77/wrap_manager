@@ -3,7 +3,7 @@ class ClientActionsController < ApplicationController
   before_action :set_client_action, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new]
   before_action :set_client, only: [:new, :edit]
-  # after_action :verify_authorized
+  after_action :verify_authorized, except: :index, :new, :create
 
   attr_accessor :client_action, :client
   helper_method :client_action, :client
@@ -57,6 +57,7 @@ class ClientActionsController < ApplicationController
   private
     def set_client_action
       @client_action = ClientAction.find(params.require(:id))
+      authorize client_action
     end
 
     def set_client
