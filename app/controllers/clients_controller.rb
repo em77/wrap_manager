@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
   before_action :require_login
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new]
-  after_action :verify_authorized, except: :new, :create
+  after_action :verify_authorized, except: [:new, :create, :add_user_to_client]
 
   attr_accessor :client, :clients, :client_actions
   helper_method :client, :clients, :client_actions
@@ -65,7 +65,9 @@ class ClientsController < ApplicationController
     authorize client
     client.user_id = nil
     client.save
-    flash[:error] = "#{client.name} has been unassigned from you"
+    Appointment.destroy_all_future_appointments_for_client(client.id)
+    flash[:error] = "#{client.name} has been unassigned from you and all" +
+      " future appointments with them have been deleted."
     redirect_to user_path(current_user)
   end
 

@@ -2,7 +2,7 @@ class AppointmentsController < ApplicationController
   before_action :require_login
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new]
-  after_action :verify_authorized, except: :index, :new, :create
+  after_action :verify_authorized, except: [:index, :new, :create]
 
   attr_accessor :appointment, :appointments
   helper_method :appointment, :appointments
