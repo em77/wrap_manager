@@ -17,8 +17,6 @@ feature "Manage appointments" do
 
     fill_in "appointment_start_date", with: @appointment.start_date
     fill_in "appointment_start_time", with: @appointment.start_time
-    fill_in "appointment_ending_date", with: @appointment.ending_date
-    fill_in "appointment_ending_time", with: @appointment.ending_time
     find_button("submit_appointment").click
     expect(page).to have_content "Appointment created successfully"
 
