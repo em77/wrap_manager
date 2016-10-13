@@ -50,7 +50,8 @@
 
     <% appointments.each do |appointment| %>
       <div>
-        <%= appointment.client.name %>
+        <%= appointment.client.name + " " %>
+        <strong><%= appointment.start.strftime("%l:%M%P") %></strong>
       </div>
     <% end %>
   <% end %>
