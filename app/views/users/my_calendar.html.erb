@@ -1,0 +1,16 @@
+<% provide(:title, "My Calendar") %>
+
+<p id="notice"><%= notice %></p>
+
+<%= month_calendar(attribute: :start,
+  events: appointments) do |date, appointments| %>
+
+  <%= date.day %>
+
+  <% appointments.each do |appointment| %>
+    <div>
+      <%= appointment.client.name + " " %>
+      <strong><%= appointment.start.strftime("%l:%M%P") %></strong>
+    </div>
+  <% end %>
+<% end %>

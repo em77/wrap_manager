@@ -33,4 +33,12 @@ class UserPolicy
   def create?
     @current_user.supervisor?
   end
+
+  def my_calendar?
+    @current_user.supervisor? || @current_user == @user
+  end
+
+  def user_cp?
+    @current_user.supervisor? || @current_user == @user
+  end
 end

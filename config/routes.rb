@@ -17,5 +17,9 @@ Rails.application.routes.draw do
   get "/remove_user_from_client" => "clients#remove_user_from_client",
     as: "remove_user_from_client"
 
+  get "/users/:id/my_calendar" => "users#my_calendar"
+
+  get "/users/:id/user_cp" => "users#user_cp"
+
   root to: "pages#home"
 end

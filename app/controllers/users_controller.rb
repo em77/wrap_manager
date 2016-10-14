@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :zero_users_or_authenticated
-  before_action :set_user, only: [:show, :destroy, :edit, :update]
+  before_action :set_user, only: [:show, :destroy, :edit, :update, :my_calendar,
+    :user_cp]
   after_action :verify_authorized
 
   attr_accessor :user, :users, :appointments, :unassigned_clients,
@@ -21,9 +22,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @appointments = Appointment.where(user_id: user.id)
+  end
+
+  def user_cp
     @unassigned_clients = Client.where(user_id: nil)
     @assigned_clients = Client.where(user_id: user.id)
+  end
+
+  def my_calendar
+    @appointments = Appointment.where(user_id: user.id)
   end
 
   def destroy
