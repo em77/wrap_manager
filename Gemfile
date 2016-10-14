@@ -15,9 +15,9 @@ gem 'nokogiri', '1.6.8.1'
 
 gem 'bootstrap-sass'
 gem 'bootstrap_form', '~> 2.4'
-gem 'bootstrap_form_extensions'
-gem 'date_time_attributes'
 gem 'simple_calendar'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Create and delete client" do
   scenario "user can create and delete a client" do
-    user = create(:user)
+    user = create(:supervisor)
     client = build(:client)
     signin(user.email, "password")
     visit new_client_path

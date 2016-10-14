@@ -8,7 +8,8 @@ class AppointmentsController < ApplicationController
   helper_method :appointment, :appointments
 
   def index
-    @appointments = Appointment.where(user_id: current_user.id)
+    @appointments = Appointment.where("user_id = ? AND start > ?",
+      current_user.id, Time.zone.now)
   end
 
   def show
@@ -56,7 +57,6 @@ class AppointmentsController < ApplicationController
     end
 
     def appointment_params
-      params.require(:appointment).permit(:start, :start_time, :start_date,
-        :client_id)
+      params.require(:appointment).permit(:start, :client_id)
     end
 end

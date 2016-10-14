@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Create client action" do
   before(:each) do
-    @user = create(:user)
+    @user = create(:supervisor)
     @client = build(:client)
     @client_action = build(:client_action)
     signin(@user.email, "password")
