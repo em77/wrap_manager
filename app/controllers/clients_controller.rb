@@ -57,7 +57,7 @@ class ClientsController < ApplicationController
     client.user_id = current_user.id
     client.save
     flash[:success] = "#{client.name} has been assigned to you"
-    redirect_to user_path(current_user)
+    redirect_to user_cp_path(current_user)
   end
 
   def remove_user_from_client
@@ -68,7 +68,7 @@ class ClientsController < ApplicationController
     Appointment.destroy_all_future_appointments_for_client(client.id)
     flash[:error] = "#{client.name} has been unassigned from you and all" +
       " future appointments with them have been deleted."
-    redirect_to user_path(current_user)
+    redirect_to my_clients_path(current_user)
   end
 
   private

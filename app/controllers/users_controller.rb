@@ -26,10 +26,12 @@ class UsersController < ApplicationController
 
   def user_cp
     @unassigned_clients = Client.where(user_id: nil)
+    @unassigned_clients = @unassigned_clients.paginate(page: params[:page])
   end
 
   def my_clients
     @assigned_clients = Client.where(user_id: user.id)
+    @assigned_clients = @assigned_clients.paginate(page: params[:page])
   end
 
   def my_calendar

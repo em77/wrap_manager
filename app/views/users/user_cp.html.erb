@@ -1,22 +1,24 @@
 <% provide(:title, "Control Panel") %>
 
-<div class="inner-wrapper table-responsive client_box">
-  <table class="table">
-    <tbody>
-      <div class="bg-info box_header">
-        <h4><strong>Unassigned Clients</strong></h4>
-      </div>
-      <tr class="info table-row">
-        <td><strong>Referral Name</strong></td>
-        <td><strong>Date Added</strong></td>
-        <td><strong>Assign to Me</strong></td>
+<table class="table table-responsive client_box">
+  <tbody>
+    <div class="bg-info box_header">
+      <h4><strong>Unassigned Clients</strong></h4>
+    </div>
+    <tr class="info table-row center">
+      <td><strong>Referral Name</strong></td>
+      <td><strong>Date Added</strong></td>
+      <td><strong>Assign to Me</strong></td>
+    </tr>
+    <% unassigned_clients.each do |unassigned_client| %>
+      <tr>
+        <%= render partial: "unassigned_row",
+          locals: {client: unassigned_client} %>
       </tr>
-      <% unassigned_clients.each do |unassigned_client| %>
-        <tr>
-          <%= render partial: "unassigned_row",
-            locals: {client: unassigned_client} %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="center">
+  <%= will_paginate unassigned_clients, renderer: BootstrapPagination::Rails %>
 </div>

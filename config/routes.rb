@@ -17,11 +17,11 @@ Rails.application.routes.draw do
   get "/remove_user_from_client" => "clients#remove_user_from_client",
     as: "remove_user_from_client"
 
-  get "/users/:id/my_calendar" => "users#my_calendar"
+  get "/users/:id/my_calendar" => "users#my_calendar", as: :my_calendar
 
-  get "/users/:id/user_cp" => "users#user_cp"
+  get "/users/:id/user_cp" => "users#user_cp", as: :user_cp
 
-  get "/users/:id/my_clients" => "users#my_clients"
+  get "/users/:id/my_clients" => "users#my_clients", as: :my_clients
 
   root to: "pages#home"
 end
