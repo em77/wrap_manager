@@ -1,0 +1,19 @@
+<div id="assigned_client_box">
+  <div class="outer-wrapper">
+    <div class="inner-wrapper table-responsive client_box">
+      <table class="table">
+        <tbody>
+          <div class="bg-info table-row box_header">
+            <h4><strong>Assigned to Me</strong></h4>
+          </div>
+          <% assigned_clients.each do |assigned_client| %>
+            <tr>
+              <%= render partial: "assigned_row",
+                locals: {client: assigned_client} %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

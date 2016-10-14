@@ -21,5 +21,7 @@ Rails.application.routes.draw do
 
   get "/users/:id/user_cp" => "users#user_cp"
 
+  get "/users/:id/my_clients" => "users#my_clients"
+
   root to: "pages#home"
 end

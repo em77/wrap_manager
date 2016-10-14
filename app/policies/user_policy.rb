@@ -41,4 +41,8 @@ class UserPolicy
   def user_cp?
     @current_user.supervisor? || @current_user == @user
   end
+
+  def my_clients?
+    @current_user.supervisor? || @current_user == @user
+  end
 end

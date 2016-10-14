@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :zero_users_or_authenticated
   before_action :set_user, only: [:show, :destroy, :edit, :update, :my_calendar,
-    :user_cp]
+    :user_cp, :my_clients]
   after_action :verify_authorized
 
   attr_accessor :user, :users, :appointments, :unassigned_clients,
@@ -26,6 +26,9 @@ class UsersController < ApplicationController
 
   def user_cp
     @unassigned_clients = Client.where(user_id: nil)
+  end
+
+  def my_clients
     @assigned_clients = Client.where(user_id: user.id)
   end
 
