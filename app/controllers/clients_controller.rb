@@ -27,7 +27,8 @@ class ClientsController < ApplicationController
 
     if @client.valid?
       @client.save
-      redirect_to(clients_path, notice: "Client created successfully")
+      flash[:success] = "Client created successfully"
+      redirect_to(client_path(client))
     else
       flash[:error] = @client.errors.full_messages.to_sentence
       redirect_to(session.delete(:return_to))
@@ -49,7 +50,8 @@ class ClientsController < ApplicationController
 
   def destroy
     client.destroy
-    redirect_to clients_path, notice: "Client deleted"
+    flash[:error] = "Client deleted"
+    redirect_to clients_path
   end
 
   def add_user_to_client

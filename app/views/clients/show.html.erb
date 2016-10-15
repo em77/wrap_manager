@@ -5,12 +5,49 @@
   <%= client.name %>
 </p>
 
-<div class="btn-group">
-  <%= link_to "New Action",
-    new_client_action_path(client, client_id: client.id),
-    class: "btn btn-success", id: "new_client_action_button",
-    method: :get %>
-</div>
+<tr class="table-row" id="show-client-options">
+  <td>
+    <div class="table-cell">
+      <div class="btn-group">
+        <%= link_to("New appointment",
+          new_appointment_path(client_id: client.id),
+          class: "btn btn-success") %>
+      </div>
+    </div>
+  </td>
+
+  <td>
+    <div class="table-cell">
+      <div class="btn-group">
+        <%= link_to "New Action",
+          new_client_action_path(client, client_id: client.id),
+          class: "btn btn-success", id: "new_client_action_button",
+          method: :get %>
+      </div>
+    </div>
+  </td>
+
+  <td>
+    <div class="table-cell">
+      <div class="dropdown">
+        <button class="btn dropdown-toggle btn-danger" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Edit Client
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li>
+            <%= link_to("Edit Client", edit_client_path(client)) %>
+          </li>
+          <li>
+            <%= link_to("Delete client", client_path(client), data:
+              { :confirm => "Are you sure you want to delete this client?" },
+              method: :delete) %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </td>
+</tr>
 
 <% client_actions.each do |client_action| %>
   <div class="css_row" id="client_action_<%= client_action.id %>">

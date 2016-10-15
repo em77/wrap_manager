@@ -10,16 +10,14 @@ feature "Manage appointments" do
   end
 
   scenario "user can create and delete an appointment from clients index" do
-    visit clients_path
-    within("div#client_#{@client.id}") do
-      find_link("New appointment").click
-    end
+    visit client_path(@client.id)
+    find_link("New appointment").click
 
     fill_in "appointment_start", with: @appointment.start
     find_button("submit_appointment").click
     expect(page).to have_content "Appointment created successfully"
 
-    visit user_path(@user)
+    visit my_calendar_path(@user)
     expect(page).to have_content "#{Time.zone.now.day} #{@client.name}"
 
     visit appointments_path

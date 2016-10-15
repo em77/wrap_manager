@@ -14,17 +14,19 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse-area">
       <ul class="nav navbar-nav navbar-left" id="navbar-buttons">
-        <li>
-          <%= link_to "Unassigned Clients", user_cp_path(current_user) %>
-        </li>
+        <% if logged_in? %>
+          <li>
+            <%= link_to "Unassigned Clients", user_cp_path(current_user) %>
+          </li>
 
-        <li>
-          <%= link_to "My Clients", my_clients_path(current_user) %>
-        </li>
+          <li>
+            <%= link_to "My Clients", my_clients_path(current_user) %>
+          </li>
 
-        <li>
-          <%= link_to "Calendar", my_calendar_path(current_user) %>
-        </li>
+          <li>
+            <%= link_to "Calendar", my_calendar_path(current_user) %>
+          </li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>

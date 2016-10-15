@@ -9,9 +9,7 @@ feature "Create and delete client" do
     fill_in "Name", with: client.name
     find_button("submit_client").click
     expect(page).to have_content "Client created successfully"
-    within("div#client_#{client.id}") do
-      find_link("Delete client").click
-    end
+    find_link("Delete client").click
     expect(page).to have_content "Client deleted"
   end
 end
