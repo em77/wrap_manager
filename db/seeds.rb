@@ -8,6 +8,7 @@
 
 75.times do
   client = Client.new
-  client.name = Faker::Name.name
+  client.first_name = Faker::Name.first_name
+  client.last_name = Faker::Name.last_name
   client.save!
 end

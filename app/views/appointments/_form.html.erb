@@ -14,7 +14,7 @@
     </div>
   <% end %>
 
-  <h2><%= Client.where(client_id: params["client_id"]).name %></h2>
+  <h2><%= client.first_name + " " + client.last_name %></h2>
 
   <%= f.hidden_field :client_id, value: params["client_id"] %>
 

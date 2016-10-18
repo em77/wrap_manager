@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :client do
-    name "First Last"
+    first_name "First"
+    last_name "Last"
     id 1
   end
 end

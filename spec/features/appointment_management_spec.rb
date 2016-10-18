@@ -6,7 +6,7 @@ feature "Manage appointments" do
     @client = build(:client)
     @appointment = build(:appointment)
     signin(@user.email, "password")
-    create_client(@client.name)
+    create_client(@client.first_name, @client.last_name)
   end
 
   scenario "user can create and delete an appointment from clients index" do
@@ -18,7 +18,7 @@ feature "Manage appointments" do
     expect(page).to have_content "Appointment created successfully"
 
     visit my_calendar_path(@user)
-    expect(page).to have_content "#{Time.zone.now.day} #{@client.name}"
+    expect(page).to have_content "#{Time.zone.now.day} #{@client.first_name}"
 
     visit appointments_path
     within("div#appointment_#{@appointment.id}") do

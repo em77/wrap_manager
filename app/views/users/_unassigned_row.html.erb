@@ -1,6 +1,6 @@
 <tr class="table-row center">
   <td>
-    <%= client.name %>
+    <%= client.first_name + " " + client.last_name %>
   </td>
 
   <td>
@@ -9,7 +9,8 @@
 
   <td>
     <%= link_to("", add_user_to_client_path(client_id: client.id),
-      data: { :confirm => "Are you sure you want to assign #{client.name}" +
+      data: { :confirm => "Are you sure you want to assign" +
+      " #{client.first_name + " " + client.last_name}" +
       " to yourself?" },
       class: "btn btn-default glyphicon glyphicon-unchecked",
       title: "Assign to Me") %>

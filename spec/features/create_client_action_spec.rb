@@ -6,7 +6,7 @@ feature "Create client action" do
     @client = build(:client)
     @client_action = build(:client_action)
     signin(@user.email, "password")
-    create_client(@client.name)
+    create_client(@client.first_name, @client.last_name)
   end
 
   scenario "user can create and delete an action from client show page" do

@@ -1,5 +1,7 @@
 <div class="css_cell">
-  <%= link_to appointment.client.name, client_path(appointment.client) %>
+  <%=
+  link_to "#{appointment.client.first_name + " " + appointment.client.last_name}",
+  client_path(appointment.client) %>
 </div>
 <div class="css_cell">
   <%= appointment.start %>

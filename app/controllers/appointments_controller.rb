@@ -1,11 +1,12 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:new, :edit]
   before_action :set_referer, only: [:destroy, :edit, :new]
   after_action :verify_authorized, except: [:index, :new, :create]
 
-  attr_accessor :appointment, :appointments
-  helper_method :appointment, :appointments
+  attr_accessor :appointment, :appointments, :client
+  helper_method :appointment, :appointments, :client
 
   def index
     @appointments = Appointment.where("user_id = ? AND start > ?",
@@ -58,5 +59,9 @@ class AppointmentsController < ApplicationController
 
     def appointment_params
       params.require(:appointment).permit(:start, :client_id)
+    end
+
+    def set_client
+      @client = Client.find(params.permit(:client_id)[:client_id])
     end
 end

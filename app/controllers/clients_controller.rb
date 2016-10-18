@@ -58,7 +58,8 @@ class ClientsController < ApplicationController
     client = Client.find_by_id(params.require([:client_id]))
     client.user_id = current_user.id
     client.save
-    flash[:success] = "#{client.name} has been assigned to you"
+    flash[:success] = "#{client.first_name + " " + client.last_name} has been" +
+      " assigned to you"
     redirect_to user_cp_path(current_user)
   end
 
@@ -68,7 +69,8 @@ class ClientsController < ApplicationController
     client.user_id = nil
     client.save
     Appointment.destroy_all_future_appointments_for_client(client.id)
-    flash[:error] = "#{client.name} has been unassigned from you and all" +
+    flash[:error] = "#{client.first_name + " " + client.last_name}" +
+      " has been unassigned from you and all" +
       " future appointments with them have been deleted."
     redirect_to my_clients_path(current_user)
   end
@@ -80,6 +82,6 @@ class ClientsController < ApplicationController
     end
 
     def client_params
-      params.require(:client).permit(:name)
+      params.require(:client).permit(:first_name, :last_name)
     end
 end
