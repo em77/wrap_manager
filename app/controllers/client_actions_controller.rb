@@ -98,6 +98,6 @@ class ClientActionsController < ApplicationController
 
     def client_action_params
       params.require(:client_action).permit(:wrap_session,
-        :client_id, :user_name, :notes)
+        :client_id, :user_name, :notes, :wrap_action)
     end
 end
