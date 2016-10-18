@@ -53,13 +53,14 @@
   <div class="css_row" id="client_action_<%= client_action.id %>">
     <div class="css_cell">
       <%= link_to client_action.updated_at.strftime("%m/%d/%Y, %l:%M %p"),
-        client_actions_path(client_action) %>
+        client_action_path(client_action) %>
       - <%= client_action.notes[0..25] %>
         <%= "..." if client_action.notes.length > 26 %>
     </div>
     <div class="css_cell">
       <div class="btn-group">
-        <%= link_to("Edit Action", edit_client_action_path(client_action),
+        <%= link_to("Edit Action",
+          edit_client_action_path(client_action, client_id: client.id),
           class: "btn btn-info") %>
       </div>
     </div>

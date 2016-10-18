@@ -1,7 +1,7 @@
 $(document).on "turbolinks:load", ->
   $("#choices_toggler").click ->
-    clear_radios()
     if $("#wrap_status_choices").is ":hidden"
+      clear_radios()
       # Toggle wrap_status_choices slide down
       $("#wrap_status_choices").slideToggle()
       # Change icon on toggler
