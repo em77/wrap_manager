@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018170654) do
+ActiveRecord::Schema.define(version: 20161020164005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,19 @@ ActiveRecord::Schema.define(version: 20161018170654) do
     t.string   "first_name"
     t.string   "last_name"
     t.index ["user_id"], name: "index_clients_on_user_id", using: :btree
+  end
+
+  create_table "monthly_stats", force: :cascade do |t|
+    t.integer  "total_wrap_sessions"
+    t.integer  "unique_clients_attended_wrap_sessions"
+    t.integer  "total_wraps_opened"
+    t.integer  "total_wraps_completed"
+    t.integer  "unique_clients_attended_non_wrap"
+    t.integer  "total_non_wrap"
+    t.integer  "year"
+    t.integer  "month"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "users", force: :cascade do |t|
