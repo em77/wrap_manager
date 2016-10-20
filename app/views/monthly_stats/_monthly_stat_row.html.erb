@@ -1,0 +1,31 @@
+<tr class="table-row center">
+  <td>
+    <strong>
+      <%= Date::MONTHNAMES[current_monthly_stat.month] %>
+    </strong>
+  </td>
+
+  <td>
+    <%= current_monthly_stat.total_wrap_sessions %>
+  </td>
+
+  <td>
+    <%= current_monthly_stat.unique_clients_attended_wrap_sessions %>
+  </td>
+
+  <td>
+    <%= current_monthly_stat.total_wraps_opened %>
+  </td>
+
+  <td>
+    <%= current_monthly_stat.total_wraps_completed %>
+  </td>
+
+  <td>
+    <%= current_monthly_stat.unique_clients_attended_non_wrap %>
+  </td>
+
+  <td>
+    <%= current_monthly_stat.total_non_wrap %>
+  </td>
+</tr>

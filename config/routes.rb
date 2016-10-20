@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :appointments
   resources :client_actions
+  resources :monthly_stats, only: [:index]
 
   get "login" => "user_sessions#new", as: :login
   get "logout" => "user_sessions#destroy", as: :logout

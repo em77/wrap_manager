@@ -1,0 +1,37 @@
+<% provide(:title, "Monthly Statistics") %>
+
+<% (2016..Time.zone.now.year).to_a.reverse.each do |year_num| %>
+  <div class="stat_table_container">
+    <table class="table table-striped table-responsive stat_box">
+      <tbody>
+        <div class="bg-info small_box_header">
+          <h2><strong><%= year_num %></strong></h2>
+        </div>
+        <tr class="info table-row center">
+          <td><strong>Month</strong></td>
+          <td><strong># of WRAP sessions</strong></td>
+          <td>
+            <strong>
+              # of unduplicated members who attended a WRAP session
+            </strong>
+          </td>
+          <td><strong># of WRAP plans opened</strong></td>
+          <td><strong># of WRAP plans completed</strong></td>
+          <td>
+            <strong>
+              # of unduplicated members who attended a non-WRAP session
+            </strong>
+          </td>
+          <td><strong># of non-WRAP sessions</strong></td>
+        </tr>
+        <% (monthly_stats.minimum(:month)..monthly_stats.maximum(:month))
+          .each do |month_num| %>
+          <% current_monthly_stat = monthly_stats.where(
+            "month = ? AND year = ?", month_num, year_num).first %>
+          <%= render partial: "monthly_stat_row",
+            locals: {current_monthly_stat: current_monthly_stat} %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

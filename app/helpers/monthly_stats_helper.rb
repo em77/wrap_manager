@@ -1,0 +1,2 @@
+module MonthlyStatsHelper
+end
