@@ -41,7 +41,7 @@ class AppointmentsController < ApplicationController
       flash[:success] = "Appointment updated successfully"
       redirect_to my_calendar_path
     else
-      flash[:error] = "Log update failed"
+      flash[:error] = "Appointment update failed"
       redirect_to my_calendar_path
     end
   end

@@ -41,10 +41,10 @@ class ClientsController < ApplicationController
   def update
     if @client.update(client_params)
       flash[:success] = "Client updated successfully"
-      redirect_to clients_path
+      redirect_to client_path(client)
     else
       flash[:error] = "Log update failed"
-      redirect_to clients_path
+      redirect_to client_path(client)
     end
   end
 
