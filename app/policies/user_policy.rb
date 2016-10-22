@@ -11,7 +11,7 @@ class UserPolicy
   end
 
   def show?
-    @current_user.supervisor? || @current_user == @user
+    @current_user.supervisor?
   end
 
   def destroy?

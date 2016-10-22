@@ -1,6 +1,6 @@
 <tr class="table-row center">
   <td>
-    <%= client.first_name + " " + client.last_name %>
+    <%= "#{client.last_name}, #{client.first_name}" %>
   </td>
 
   <td>
@@ -12,17 +12,19 @@
       <div class="btn-group">
         <%= link_to("New appointment",
           new_appointment_path(client_id: client.id),
-          class: "btn btn-success") %>
+          class: "btn btn-primary") %>
       </div>
     </div>
   </td>
 
   <td>
-    <div class="btn-group">
-      <%= link_to "New Action",
-        new_client_action_path(client, client_id: client.id),
-        class: "btn btn-success", id: "new_client_action_button",
-        method: :get %>
+    <div class="table-cell">
+      <div class="btn-group">
+        <%= link_to "New Action",
+          new_client_action_path(client, client_id: client.id),
+          class: "btn btn-success", id: "new_client_action_button",
+          method: :get %>
+      </div>
     </div>
   </td>
 

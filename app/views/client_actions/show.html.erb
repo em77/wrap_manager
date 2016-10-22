@@ -1,12 +1,31 @@
 <% provide(:title, "Action") %>
 
+<div class="panel panel-primary client-action-panel">
+  <div class="panel-heading">
+    Notes
+  </div>
+  <div class="panel-body">
+    <%= client_action.notes %>
+  </div>
+</div>
+
+<div class="panel panel-danger client-action-panel">
+  <div class="panel-heading">
+    WRAP Status Changed
+  </div>
+  <div class="panel-body">
+    <%= client_wrap_action_prettified %>
+  </div>
+</div>
+
 <p>
-  <strong>Notes:</strong>
-  <%= client_action.notes %>
+  Created at: <%= client_action.created_at.strftime("%m/%d/%Y, %l:%M %p") %>
 </p>
 
-<p class="bold_text">
-  WRAP Status Changed: <%= client_wrap_action_prettified %>
+<p>
+  Last updated at: <%= client_action.updated_at.strftime("%m/%d/%Y, %l:%M %p") %>
 </p>
 
-<%= link_to "Back", client_path(client_action.client_id) %>
+<%= link_to client_path(client_action.client_id), class: "btn btn-primary" do %>
+  <span class="glyphicon glyphicon-chevron-left"></span> Back to Client
+<% end %>

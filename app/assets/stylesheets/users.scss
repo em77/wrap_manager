@@ -30,3 +30,35 @@ html, body {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.outer_wrapper {
+  padding-top: 10px;
+}
+
+#new_user_button {
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+
+.css_table {
+  display: table;
+}
+
+.css_row {
+  display: table-row;
+}
+
+.css_cell {
+  display: table-cell;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.css_tbody {
+  display: table-row-group;
+}
+
+hr {
+  width: 1000%;
+}

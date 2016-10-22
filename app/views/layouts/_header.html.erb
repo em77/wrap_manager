@@ -19,6 +19,9 @@
             <li>
               <%= link_to "Monthly Statistics", monthly_stats_path %>
             </li>
+            <li>
+              <%= link_to "Users", users_path %>
+            </li>
           <% else %>
             <li>
               <%= link_to "Unassigned Clients", user_cp_path(current_user) %>

@@ -31,6 +31,8 @@ class UsersController < ApplicationController
 
   def my_clients
     @assigned_clients = Client.where(user_id: user.id)
+    @assigned_clients = @assigned_clients.reorder(
+      "last_name ASC")
     @assigned_clients = @assigned_clients.paginate(page: params[:page])
   end
 
