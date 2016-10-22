@@ -1,1 +1,9 @@
-This is home.
+<body id="home-body">
+  <% unless logged_in? %>
+    <div class="jumbotron">
+      <h2>Welcome to the Fountain House WRAP Manager</h2>
+      <p>Please sign in to continue.</p>
+      <%= link_to "Sign in", login_path, class: "btn btn-primary btn-lg" %>
+    </div>
+  <% end %>
+</body>

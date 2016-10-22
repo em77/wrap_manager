@@ -1,3 +1,16 @@
-// Place all the styles related to the pages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#home-body {
+  background: url("https://s3.amazonaws.com/fountainhouse-bucket/photo-calendar-resize.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.jumbotron {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 6px;
+}
