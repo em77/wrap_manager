@@ -26,6 +26,7 @@
   Last updated at: <%= client_action.updated_at.strftime("%m/%d/%Y, %l:%M %p") %>
 </p>
 
-<%= link_to client_path(client_action.client_id), class: "btn btn-primary" do %>
+<%= link_to client_path(client_action.client_id),
+  class: "btn btn-primary back-button" do %>
   <span class="glyphicon glyphicon-chevron-left"></span> Back to Client
 <% end %>

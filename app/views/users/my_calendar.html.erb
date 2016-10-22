@@ -1,7 +1,5 @@
 <% provide(:title, "My Calendar") %>
 
-<p id="notice"><%= notice %></p>
-
 <%= month_calendar(attribute: :start,
   events: appointments) do |date, appointments| %>
 
@@ -11,7 +9,12 @@
     <div>
       <%= appointment.client.first_name + " " + appointment.client.last_name +
         " " %>
-      <strong><%= appointment.start.strftime("%l:%M%P") %></strong>
+      <strong>
+        <%=
+          link_to appointment.start.strftime("%l:%M%P"),
+          edit_appointment_path(appointment, client_id: appointment.client.id)
+        %>
+      </strong>
     </div>
   <% end %>
 <% end %>

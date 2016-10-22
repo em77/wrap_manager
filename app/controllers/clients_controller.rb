@@ -70,7 +70,7 @@ class ClientsController < ApplicationController
     client.save
     Appointment.destroy_all_future_appointments_for_client(client.id)
     flash[:error] = "#{client.first_name + " " + client.last_name}" +
-      " has been unassigned from you and all" +
+      " has been unassigned from you and any" +
       " future appointments with them have been deleted."
     redirect_to my_clients_path(current_user)
   end

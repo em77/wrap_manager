@@ -39,10 +39,10 @@ class AppointmentsController < ApplicationController
   def update
     if @appointment.update(appointment_params)
       flash[:success] = "Appointment updated successfully"
-      redirect_to appointments_path
+      redirect_to my_calendar_path
     else
       flash[:error] = "Log update failed"
-      redirect_to appointments_path
+      redirect_to my_calendar_path
     end
   end
 
