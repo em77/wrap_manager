@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   get "/users/:id/my_calendar" => "users#my_calendar", as: :my_calendar
 
-  get "/users/:id/user_cp" => "users#user_cp", as: :user_cp
+  get "unassigned" => "clients#unassigned", as: :unassigned
 
   get "/users/:id/my_clients" => "users#my_clients", as: :my_clients
 

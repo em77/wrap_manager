@@ -1,13 +1,11 @@
 class UsersController < ApplicationController
   before_action :zero_users_or_authenticated
   before_action :set_user, only: [:show, :destroy, :edit, :update, :my_calendar,
-    :user_cp, :my_clients]
+    :my_clients]
   after_action :verify_authorized
 
-  attr_accessor :user, :users, :appointments, :unassigned_clients,
-    :assigned_clients
-  helper_method :user, :users, :appointments, :unassigned_clients,
-    :assigned_clients
+  attr_accessor :user, :users, :appointments, :assigned_clients
+  helper_method :user, :users, :appointments, :assigned_clients
 
   def zero_users_or_authenticated
     unless User.count == 0 || current_user
@@ -24,15 +22,9 @@ class UsersController < ApplicationController
   def show
   end
 
-  def user_cp
-    @unassigned_clients = Client.where(user_id: nil)
-    @unassigned_clients = @unassigned_clients.paginate(page: params[:page])
-  end
-
   def my_clients
     @assigned_clients = Client.where(user_id: user.id)
-    @assigned_clients = @assigned_clients.reorder(
-      "last_name ASC")
+    @assigned_clients = @assigned_clients.reorder("last_name ASC")
     @assigned_clients = @assigned_clients.paginate(page: params[:page])
   end
 

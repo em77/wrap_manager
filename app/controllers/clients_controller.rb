@@ -2,10 +2,11 @@ class ClientsController < ApplicationController
   before_action :require_login
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new]
-  after_action :verify_authorized, except: [:new, :create, :add_user_to_client]
+  after_action :verify_authorized, except: [:new, :create, :add_user_to_client,
+    :unassigned]
 
-  attr_accessor :client, :clients, :client_actions
-  helper_method :client, :clients, :client_actions
+  attr_accessor :client, :clients, :client_actions, :unassigned_clients
+  helper_method :client, :clients, :client_actions, :unassigned_clients
 
   def index
     @clients = Client.all
@@ -27,8 +28,8 @@ class ClientsController < ApplicationController
 
     if @client.valid?
       @client.save
-      flash[:success] = "Client created successfully"
-      redirect_to(client_path(client))
+      flash[:success] = "New client added to unassigned list"
+      redirect_to(unassigned_path)
     else
       flash[:error] = @client.errors.full_messages.to_sentence
       redirect_to(session.delete(:return_to))
@@ -54,13 +55,19 @@ class ClientsController < ApplicationController
     redirect_to clients_path
   end
 
+  def unassigned
+    @unassigned_clients = Client.where(user_id: nil)
+    @unassigned_clients = @unassigned_clients.reorder("last_name ASC")
+    @unassigned_clients = @unassigned_clients.paginate(page: params[:page])
+  end
+
   def add_user_to_client
     client = Client.find_by_id(params.require([:client_id]))
     client.user_id = current_user.id
     client.save
     flash[:success] = "#{client.first_name + " " + client.last_name} has been" +
       " assigned to you"
-    redirect_to user_cp_path(current_user)
+    redirect_to unassigned_path
   end
 
   def remove_user_from_client
