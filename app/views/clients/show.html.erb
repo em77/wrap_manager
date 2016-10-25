@@ -20,13 +20,18 @@
   </td>
 
   <td>
-    <div class="table-cell">
+    <div class="table-cell" id="new_client_action_button_div">
       <div class="btn-group">
         <%= link_to "New Action",
           new_client_action_path(client, client_id: client.id),
           class: "btn btn-success", id: "new_client_action_button",
           method: :get %>
       </div>
+    </div>
+  </td>
+
+  <td>
+    <div class="filler">
     </div>
   </td>
 
