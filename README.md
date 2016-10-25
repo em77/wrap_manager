@@ -1,24 +1,2 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Fountain House WRAP Manager
+#### Web app created for the [Fountain House](http://www.fountainhouse.org) organization to help staff manage appointments and tracking actions taken at them to assist members in creating [WRAP](https://en.wikipedia.org/wiki/Wellness_Recovery_Action_Plan) plans.
