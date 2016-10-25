@@ -1,1 +1,13 @@
 <% provide(:title, "User") %>
+
+<div id="show-user-container">
+  <div class="panel panel-primary" id="show-user-panel">
+    <div class="panel-heading">
+      <h4><%= user.name %></h4>
+    </div>
+    <div class="panel-body">
+      <%= link_to "My Clients", my_clients_path(user) %>
+      <%= link_to "Calendar", my_calendar_path(user) %>
+    </div>
+  </div>
+</div>

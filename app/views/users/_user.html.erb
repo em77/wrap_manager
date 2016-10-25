@@ -5,6 +5,21 @@
   <%= user.name %>
 </div>
 <div class="css_cell">
+  <div class="btn-group">
+    <%= link_to("Assigned Clients", my_clients_path(user),
+      class: "btn btn-primary") %>
+  </div>
+</div>
+<div class="css_cell">
+  <div class="btn-group">
+    <%= link_to("User Calendar", my_calendar_path(user),
+      class: "btn btn-warning") %>
+  </div>
+</div>
+<div class="css_cell">
+  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+</div>
+<div class="css_cell">
   <%= form_for(user) do |f| %>
     <div class="form-group css_cell">
       <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {},

@@ -12,26 +12,28 @@
     </h4>
   </td>
 
-  <td>
-    <div class="table-cell">
-      <div class="btn-group">
-        <%= link_to("New appointment",
-          new_appointment_path(client_id: client.id),
-          class: "btn btn-primary") %>
+  <% unless policy(User).index? %>
+    <td>
+      <div class="table-cell">
+        <div class="btn-group">
+          <%= link_to("New appointment",
+            new_appointment_path(client_id: client.id),
+            class: "btn btn-primary") %>
+        </div>
       </div>
-    </div>
-  </td>
+    </td>
 
-  <td>
-    <div class="table-cell">
-      <div class="btn-group">
-        <%= link_to "New Action",
-          new_client_action_path(client, client_id: client.id),
-          class: "btn btn-success", id: "new_client_action_button",
-          method: :get %>
+    <td>
+      <div class="table-cell">
+        <div class="btn-group">
+          <%= link_to "New Action",
+            new_client_action_path(client, client_id: client.id),
+            class: "btn btn-success", id: "new_client_action_button",
+            method: :get %>
+        </div>
       </div>
-    </div>
-  </td>
+    </td>
+  <% end %>
 
   <td>
     <%= link_to("", remove_user_from_client_path(client_id: client.id),

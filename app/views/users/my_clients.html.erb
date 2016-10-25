@@ -3,7 +3,13 @@
 <table class="table table-responsive client_box">
   <tbody>
     <div class="bg-info table-row box_header">
-      <h4><strong>Assigned to Me</strong></h4>
+      <h4>
+        <% if policy(User).index? %>
+          <strong>Assigned to <%= user.name %></strong>
+        <% else %>
+          <strong>Assigned to Me</strong>
+        <% end %>
+      </h4>
     </div>
     <% assigned_clients.each do |assigned_client| %>
       <tr>

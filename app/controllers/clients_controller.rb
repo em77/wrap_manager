@@ -81,7 +81,7 @@ class ClientsController < ApplicationController
     flash[:error] = "#{client.first_name + " " + client.last_name}" +
       " has been unassigned from you and any" +
       " future appointments with them have been deleted."
-    redirect_to my_clients_path(current_user)
+    redirect_to(session.delete(:return_to))
   end
 
   private
