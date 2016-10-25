@@ -17,8 +17,10 @@ feature "Manage appointments" do
     find_button("submit_appointment").click
     expect(page).to have_content "Appointment created successfully"
 
+    saved_appointment = Appointment.find(@appointment.id)
     visit my_calendar_path(@user)
-    expect(page).to have_content "#{Time.zone.now.day} #{@client.first_name}"
+    expect(page).to have_content "#{saved_appointment.start.day}" +
+      " #{@client.first_name} #{@client.last_name}"
 
     visit appointments_path
     within("div#appointment_#{@appointment.id}") do

@@ -7,9 +7,15 @@ module ClientActionsHelper
     wrap_situation_prettified(client_action.wrap_action)
   end
 
-  def wrap_situation_prettified(wrap_status_or_action)
-    "<span class='#{wrap_status_or_action.to_s}_wrap'>
-      #{wrap_status_or_action.upcase.gsub(/_/,' ')}
+  def wrap_situation_prettified(wrap_text)
+    "<span class='#{wrap_text.to_s}_wrap bold_text'>
+      #{wrap_text.upcase.gsub(/_/,' ')}
+    </span>".html_safe
+  end
+
+  def wrap_session_prettified(wrap_session)
+    "<span class='#{wrap_session.to_s} bold_text'>
+      #{wrap_session.upcase.gsub(/_/,' ')}
     </span>".html_safe
   end
 end

@@ -3,7 +3,6 @@ class ClientActionsController < ApplicationController
   before_action :set_client_action, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new]
   before_action :set_client, only: [:new, :edit]
-  before_action :set_original_wrap_status, only: [:new, :edit]
   after_action :verify_authorized, except: [:index, :new, :create]
 
   attr_accessor :client_action, :client
@@ -49,11 +48,13 @@ class ClientActionsController < ApplicationController
     @client = Client.find(params.require(:client_action)
       .permit(:client_id)[:client_id])
 
+    set_original_wrap_status
+
     @client.wrap_status = params.require(:client_action)
       .require(:client).permit(:wrap_status)[:wrap_status] if
         params.require(:client_action)[:client]
 
-    if @client_action.valid?
+    if @client_action.update(client_action_params)
       set_wrap_action
       @client.save
       @client_action.save

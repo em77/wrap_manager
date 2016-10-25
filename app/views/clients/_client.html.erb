@@ -1,3 +1,19 @@
-<div class="css_cell">
-  <%= link_to "#{client.first_name + " " + client.last_name}", client %>
-</div>
+<tr class="table-row center" id="client_<%= client.id %>">
+  <td>
+    <h4>
+      <%= link_to "#{client.last_name}, #{client.first_name}",
+        client_path(client) %>
+    </h4>
+  </td>
+
+  <td>
+    <div class="table-cell">
+      <div class="btn-group">
+        <%= link_to("Delete Client", client_path(client), data:
+          { confirm: "Are you sure you want to delete this client?" },
+          method: :delete,
+          class: "btn btn-danger", id: "delete-client-button_#{client.id}") %>
+      </div>
+    </div>
+  </td>
+</tr>

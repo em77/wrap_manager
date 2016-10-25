@@ -11,6 +11,8 @@ class ClientsController < ApplicationController
   def index
     @clients = Client.all
     authorize Client
+    @clients = @clients.reorder("last_name ASC")
+    @clients = @clients.paginate(page: params[:page])
   end
 
   def show
@@ -52,7 +54,7 @@ class ClientsController < ApplicationController
   def destroy
     client.destroy
     flash[:error] = "Client deleted"
-    redirect_to clients_path
+    redirect_to(session.delete(:return_to))
   end
 
   def unassigned

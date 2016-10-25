@@ -9,6 +9,15 @@
   </div>
 </div>
 
+<div class="panel panel-warning client-action-panel">
+  <div class="panel-heading">
+    WRAP session?
+  </div>
+  <div class="panel-body">
+    <%= wrap_session_prettified(client_action.wrap_session) %>
+  </div>
+</div>
+
 <div class="panel panel-danger client-action-panel">
   <div class="panel-heading">
     WRAP Status Changed
@@ -18,13 +27,26 @@
   </div>
 </div>
 
-<p>
-  Created at: <%= client_action.created_at.strftime("%m/%d/%Y, %l:%M %p") %>
-</p>
+<div class="panel panel-info client-action-panel">
+  <div class="panel-heading">
+    Peer Specialist Info
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>Created by:</strong> <%= client_action.user_name %>
+    </p>
 
-<p>
-  Last updated at: <%= client_action.updated_at.strftime("%m/%d/%Y, %l:%M %p") %>
-</p>
+    <p>
+      <strong>Created at:</strong> <%= client_action.created_at.strftime(
+        "%m/%d/%Y, %l:%M %p") %>
+    </p>
+
+    <p>
+      <strong>Last updated at:</strong> <%= client_action.updated_at.strftime(
+        "%m/%d/%Y, %l:%M %p") %>
+    </p>
+  </div>
+</div>
 
 <%= link_to client_path(client_action.client_id),
   class: "btn btn-primary back-button" do %>

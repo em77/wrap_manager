@@ -32,21 +32,9 @@
 
   <td>
     <div class="table-cell">
-      <div class="dropdown">
-        <button class="btn dropdown-toggle btn-danger" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Edit Client
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li>
-            <%= link_to("Edit Client", edit_client_path(client)) %>
-          </li>
-          <li>
-            <%= link_to("Delete client", client_path(client), data:
-              { :confirm => "Are you sure you want to delete this client?" },
-              method: :delete) %>
-          </li>
-        </ul>
+      <div class="btn-group">
+        <%= link_to "Edit Client", edit_client_path(client),
+          class: "btn btn-info" %>
       </div>
     </div>
   </td>

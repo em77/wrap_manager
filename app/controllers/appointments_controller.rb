@@ -26,7 +26,8 @@ class AppointmentsController < ApplicationController
 
     if @appointment.valid?
       @appointment.save
-      redirect_to(appointments_path, notice: "Appointment created successfully")
+      redirect_to(session.delete(:return_to),
+        notice: "Appointment created successfully")
     else
       flash[:error] = @appointment.errors.full_messages.to_sentence
       redirect_to(session.delete(:return_to))
@@ -39,16 +40,16 @@ class AppointmentsController < ApplicationController
   def update
     if @appointment.update(appointment_params)
       flash[:success] = "Appointment updated successfully"
-      redirect_to my_calendar_path
+      redirect_to session.delete(:return_to)
     else
       flash[:error] = "Appointment update failed"
-      redirect_to my_calendar_path
+      redirect_to session.delete(:return_to)
     end
   end
 
   def destroy
     appointment.destroy
-    redirect_to my_calendar_path, notice: "Appointment deleted"
+    redirect_to session.delete(:return_to), notice: "Appointment deleted"
   end
 
   private
