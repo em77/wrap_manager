@@ -1,11 +1,14 @@
 <% provide(:title, "Client") %>
 
-<p>
-  <strong>Name:</strong>
-  <%= client.first_name + " " + client.last_name %>
-</p>
-
 <tr class="table-row" id="show-client-options">
+  <td>
+    <div class="table-cell" id="client-name-cell">
+      <h3>
+        <%= client.first_name + " " + client.last_name %>
+      </h3>
+    </div>
+  </td>
+
   <td>
     <div class="table-cell">
       <div class="btn-group">
@@ -54,11 +57,15 @@
     <% client_actions.each do |client_action| %>
       <div class="css_row" id="client_action_<%= client_action.id %>">
         <div class="css_cell">
-          <%= link_to client_action.updated_at.strftime("%m/%d/%Y, %l:%M %p"),
-            client_action_path(client_action),
-            id: "client_action_#{client_action.id}_link" %>
-          - <%= client_action.notes[0..25] %>
-            <%= "..." if client_action.notes.length > 26 %>
+          <h4>
+            <%= link_to client_action.updated_at.strftime("%m/%d/%Y, %l:%M %p"),
+              client_action_path(client_action),
+              id: "client_action_#{client_action.id}_link" %>
+            <small>
+              - <%= client_action.notes[0..25] %>
+              <%= "..." if client_action.notes.length > 26 %>
+            </small>
+          </h4>
         </div>
         <div class="css_cell">
           <div class="btn-group">
@@ -79,4 +86,7 @@
   </div>
 </div>
 
-<%= link_to 'Back', clients_path %>
+<%= link_to my_clients_path(current_user),
+  class: "btn btn-primary back-button" do %>
+  <span class="glyphicon glyphicon-chevron-left"></span> Back to My Clients
+<% end %>
