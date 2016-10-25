@@ -2,11 +2,14 @@ require "rails_helper"
 
 feature "Manage appointments" do
   before(:each) do
-    @user = create(:supervisor)
+    @user = create(:user)
     @client = build(:client)
     @appointment = build(:appointment)
     signin(@user.email, "password")
     create_client(@client.first_name, @client.last_name)
+    saved_client = Client.last
+    saved_client.user_id = @user.id
+    saved_client.save
   end
 
   scenario "user can create and delete an appointment from clients index" do

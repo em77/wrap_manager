@@ -1,4 +1,4 @@
-<tr class="table-row center">
+<tr class="table-row center" id="unassigned_client_#{client.id}">
   <td>
     <h4>
       <%= "#{client.last_name}, #{client.first_name}" %>
@@ -17,6 +17,7 @@
       " #{client.first_name + " " + client.last_name}" +
       " to yourself?" },
       class: "btn btn-default glyphicon glyphicon-unchecked",
+      id: "assign_client_button_#{client.id}",
       title: "Assign to Me") %>
   </td>
 </tr>

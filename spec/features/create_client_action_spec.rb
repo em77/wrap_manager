@@ -2,11 +2,14 @@ require "rails_helper"
 
 feature "Create client action" do
   before(:each) do
-    @user = create(:supervisor)
+    @user = create(:user)
     @client = build(:client)
     @client_action = build(:client_action)
     signin(@user.email, "password")
     create_client(@client.first_name, @client.last_name)
+    saved_client = Client.last
+    saved_client.user_id = @user.id
+    saved_client.save
   end
 
   scenario "user can create and delete an action from client show page" do
@@ -27,6 +30,7 @@ feature "Create client action" do
     visit client_path(@client)
     find_link("New Action").click
     choose("client_action_client_wrap_status_open")
+    choose("client_action_wrap_session_yes")
     find_button("save_client_action").click
     expect(page).to have_content "Action saved successfully"
     expect(ClientAction.find(1).wrap_action).to eq "open"
@@ -39,6 +43,7 @@ feature "Create client action" do
 
     visit client_path(@client)
     find_link("New Action").click
+    choose("client_action_wrap_session_yes")
     find_button("save_client_action").click
     expect(page).to have_content "Action saved successfully"
 
