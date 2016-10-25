@@ -1,62 +1,70 @@
-<%= bootstrap_form_for(client_action, layout: :horizontal) do |f| %>
-  <% if client_action.errors.any? %>
-    <div id="error_explanation">
-      <p>
-        <%= pluralize(client_action.errors.count, "error") %> prohibited
-        this action from being saved:
+<div class="panel panel-primary" id="new-edit-client-action-panel">
+  <div class="panel-heading" id="new-edit-panel-heading">
+    <%= panel_title %>
+  </div>
+  <div class="panel-body">
+    <%= bootstrap_form_for(client_action, layout: :horizontal) do |f| %>
+      <% if client_action.errors.any? %>
+        <div id="error_explanation">
+          <p>
+            <%= pluralize(client_action.errors.count, "error") %> prohibited
+            this action from being saved:
+          </p>
+
+          <ul>
+          <% client_action.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.hidden_field :client_id, value: params["client_id"] %>
+
+      <%= f.text_area :notes, label: "Notes" %>
+
+      <%= f.form_group :wrap_session,
+        label: { text: "WRAP session? (required)" } do %>
+        <%= f.radio_button :wrap_session, :no, label: "No",
+          inline: true, required: true %>
+        <%= f.radio_button :wrap_session, :yes, label: "Yes",
+          inline: true, required: true %>
+      <% end %>
+
+      <p class="bold_text">
+        Current WRAP status: <%= client_wrap_status_generator %>
       </p>
 
-      <ul>
-      <% client_action.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="btn btn-default" id="choices_toggler">
+        Change WRAP Status
+        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+      </div>
 
-  <%= f.hidden_field :client_id, value: params["client_id"] %>
+      <div id="wrap_status_choices">
+        <%= f.fields_for(client) do |fc| %>
+          <%= fc.form_group :wrap_status,
+            label: { text: "Change WRAP Status" } do %>
+            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+            <%= fc.radio_button :wrap_status, :open, label: "Open WRAP case",
+              inline: true %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <%= fc.radio_button :wrap_status, :closed, label: "Close WRAP case",
+              inline: true %>
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <%= fc.radio_button :wrap_status, :completed,
+              label: "Mark WRAP as completed",
+              inline: true %>
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            <%= fc.radio_button :wrap_status, :non_wrap, label: "Change" +
+              " client to non-WRAP", inline: true %>
+          <% end %>
+        <% end %>
+      </div>
 
-  <%= f.text_area :notes, label: "Notes" %>
-
-  <%= f.form_group :wrap_session, label: { text: "WRAP session?" } do %>
-    <%= f.radio_button :wrap_session, :no, label: "No",
-      inline: true %>
-    <%= f.radio_button :wrap_session, :yes, label: "Yes",
-      inline: true, checked: true %>
-  <% end %>
-
-  <p class="bold_text">
-    Current WRAP status: <%= client_wrap_status_generator %>
-  </p>
-
-  <div class="btn btn-default" id="choices_toggler">
-    Change WRAP Status
-    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-  </div>
-
-  <div id="wrap_status_choices">
-    <%= f.fields_for(client) do |fc| %>
-      <%= fc.form_group :wrap_status, label: { text: "Change WRAP Status" } do %>
-        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-        <%= fc.radio_button :wrap_status, :open, label: "Open WRAP case",
-          inline: true %>
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        <%= fc.radio_button :wrap_status, :closed, label: "Close WRAP case",
-          inline: true %>
-        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-        <%= fc.radio_button :wrap_status, :completed, label: "Mark WRAP as completed",
-          inline: true %>
-        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-        <%= fc.radio_button :wrap_status, :non_wrap, label: "Change client to" +
-          " non-WRAP", inline: true %>
-      <% end %>
+      <div id="save_button_container">
+        <%= f.submit "Save Action", class: "btn btn-default btn-primary",
+          id: "save_client_action", icon: "floppy-disk" %>
+      </div>
     <% end %>
   </div>
-
-  <br>
-
-  <%= f.form_group do %>
-    <%= f.submit "Save Action", class: "btn btn-default btn-primary",
-      id: "save_client_action", icon: "floppy-disk" %>
-  <% end %>
-<% end %>
+</div>
