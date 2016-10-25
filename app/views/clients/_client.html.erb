@@ -7,6 +7,12 @@
   </td>
 
   <td>
+    <h4>
+      <%= client.updated_at.strftime("%m/%d/%Y") %>
+    </h4>
+  </td>
+
+  <td>
     <div class="table-cell">
       <div class="btn-group">
         <%= link_to("Delete Client", client_path(client), data:
