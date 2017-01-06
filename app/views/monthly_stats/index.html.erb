@@ -10,7 +10,7 @@
     Statistics for each month will be automatically posted here on the first day
     of the following month.
   </h5>
-  <% (2016..Time.zone.now.year).to_a.reverse.each do |year_num| %>
+  <% (2016..monthly_stats.last.year).to_a.reverse.each do |year_num| %>
     <div class="stat_table_container">
       <div class="bg-info small_box_header">
         <h2><strong><%= year_num %></strong></h2>
