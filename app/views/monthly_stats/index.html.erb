@@ -36,10 +36,12 @@
           </tr>
         </thead>
         <tbody>
-          <% (monthly_stats.minimum(:month)..monthly_stats.maximum(:month))
-            .each do |month_num| %>
+          <% current_monthly_stats = monthly_stats.where(
+            "year = ?", year_num) %>
+          <% (current_monthly_stats.minimum(:month)..
+            current_monthly_stats.maximum(:month)).each do |month_num| %>
             <% current_monthly_stat = monthly_stats.where(
-              "month = ? AND year = ?", month_num, year_num).first %>
+              "month = ?", month_num).first %>
             <%= render partial: "monthly_stat_row",
               locals: {current_monthly_stat: current_monthly_stat} %>
           <% end %>
