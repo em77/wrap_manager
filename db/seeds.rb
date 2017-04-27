@@ -26,7 +26,7 @@ end
   client_action.wrap_session = [0, 1].sample
   client_action.notes = Faker::Lorem.sentence
   client_action.client_id = client_id_array.sample
-  client_action.wrap_action = [:open, :closed, :completed, :non_wrap,
+  client_action.wrap_action = [:opened, :closed, :completed, :non_wrap,
     :no_change].sample
   random_date = Faker::Date.between(3.months.ago, Date.today)
   client_action.created_at = random_date

@@ -44,8 +44,9 @@
         <%= f.fields_for(client) do |fc| %>
           <%= fc.form_group :wrap_status,
             label: { text: "Change WRAP Status" } do %>
-            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-            <%= fc.radio_button :wrap_status, :open, label: "Open WRAP case",
+            <span class="glyphicon glyphicon-folder-open" aria-hidden="true">
+            </span>
+            <%= fc.radio_button :wrap_status, :opened, label: "Open WRAP case",
               inline: true %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             <%= fc.radio_button :wrap_status, :closed, label: "Close WRAP case",

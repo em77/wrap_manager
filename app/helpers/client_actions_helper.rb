@@ -8,8 +8,14 @@ module ClientActionsHelper
   end
 
   def wrap_situation_prettified(wrap_text)
-    "<span class='#{wrap_text.to_s}_wrap bold_text'>
-      #{wrap_text.upcase.gsub(/_/,' ')}
+    if wrap_text.downcase == "opened"
+      new_wrap_text = "open"
+    else
+      new_wrap_text = wrap_text
+    end
+
+    "<span class='#{new_wrap_text.to_s}_wrap bold_text'>
+      #{new_wrap_text.upcase.gsub(/_/,' ')}
     </span>".html_safe
   end
 
