@@ -17,7 +17,7 @@ gem 'rack-timeout'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
-gem 'nokogiri', '~> 1.7.1'
+gem 'nokogiri', '~> 1.8.0'
 
 gem 'bootstrap-sass'
 gem 'bootstrap_form', '~> 2.4'
