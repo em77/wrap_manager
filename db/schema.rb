@@ -15,65 +15,65 @@ ActiveRecord::Schema.define(version: 20161020164005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "appointments", force: :cascade do |t|
-    t.integer  "client_id"
-    t.integer  "user_id"
+  create_table "appointments", id: :serial, force: :cascade do |t|
+    t.datetime "start"
+    t.integer "client_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "start"
-    t.index ["client_id"], name: "index_appointments_on_client_id", using: :btree
-    t.index ["user_id"], name: "index_appointments_on_user_id", using: :btree
+    t.index ["client_id"], name: "index_appointments_on_client_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
-  create_table "client_actions", force: :cascade do |t|
-    t.integer  "wrap_session"
-    t.text     "notes"
-    t.string   "user_name"
-    t.integer  "client_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "wrap_action"
+  create_table "client_actions", id: :serial, force: :cascade do |t|
+    t.integer "wrap_session"
+    t.text "notes"
+    t.string "user_name"
+    t.integer "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "wrap_action"
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "wrap_status"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.index ["user_id"], name: "index_clients_on_user_id", using: :btree
+  create_table "clients", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "wrap_status"
+    t.string "first_name"
+    t.string "last_name"
+    t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
-  create_table "monthly_stats", force: :cascade do |t|
-    t.integer  "total_wrap_sessions"
-    t.integer  "unique_clients_attended_wrap_sessions"
-    t.integer  "total_wraps_opened"
-    t.integer  "total_wraps_completed"
-    t.integer  "unique_clients_attended_non_wrap"
-    t.integer  "total_non_wrap"
-    t.integer  "year"
-    t.integer  "month"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+  create_table "monthly_stats", id: :serial, force: :cascade do |t|
+    t.integer "total_wrap_sessions"
+    t.integer "unique_clients_attended_wrap_sessions"
+    t.integer "total_wraps_opened"
+    t.integer "total_wraps_completed"
+    t.integer "unique_clients_attended_non_wrap"
+    t.integer "total_non_wrap"
+    t.integer "year"
+    t.integer "month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                           null: false
-    t.string   "crypted_password"
-    t.string   "salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "remember_me_token"
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.string   "reset_password_token"
+    t.string "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
-    t.integer  "role"
-    t.string   "name"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
+    t.integer "role"
+    t.string "name"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "appointments", "clients"
