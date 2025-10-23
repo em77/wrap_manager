@@ -5,12 +5,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.7.2'
+ruby '2.7.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.21'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma'
 gem 'rack-timeout'
@@ -50,7 +50,7 @@ gem 'pundit'
 # Pagination
 gem 'will_paginate'
 # will_paginate integration with bootstrap
-gem 'will_paginate-bootstrap'
+gem 'bootstrap-will_paginate', '~> 1.0.0'
 
 
 # Use Capistrano for deployment
@@ -58,7 +58,7 @@ gem 'will_paginate-bootstrap'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  # gem 'byebug', platform: :mri
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
