@@ -83,4 +83,8 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # On Heroku, RAILS_MAX_THREADS is typically 1, but we need a larger pool
+  # to handle concurrent database queries (e.g., from remember_me token checks).
+  # Pool size of 5 is safe for Heroku Hobby Postgres (20 connection limit).
+  # With 1 dyno using 5 connections, there's plenty of headroom.
+  pool: <%= [ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 2, 5].max %>

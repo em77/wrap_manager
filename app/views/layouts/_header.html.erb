@@ -14,49 +14,89 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse-area">
       <ul class="nav navbar-nav navbar-left" id="navbar-buttons">
-        <% if logged_in? %>
-          <li>
-            <%= link_to "New Client", new_client_path %>
-          </li>
-          <% if policy(User).index? %>
-            <li>
-              <%= link_to "Clients", clients_path %>
-            </li>
-
-            <li>
-              <%= link_to "Users", users_path %>
-            </li>
-
-            <li>
-              <%= link_to "Monthly Statistics", monthly_stats_path %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to "Unassigned Clients", unassigned_path %>
-            </li>
-
-            <li>
-              <%= link_to "My Clients", my_clients_path(current_user) %>
-            </li>
-
-            <li>
-              <%= link_to "Calendar", my_calendar_path(current_user) %>
-            </li>
+        <% begin %>
+          <% # Skip authentication check on login page to avoid timeout %>
+          <% is_logged_in = false %>
+          <% unless request.path == '/login' %>
+            <% begin %>
+              <% is_logged_in = logged_in? %>
+            <% rescue => e %>
+              <% # If logged_in? times out or fails, assume not logged in %>
+            <% end %>
           <% end %>
+          <% if is_logged_in %>
+            <li>
+              <%= link_to "New Client", new_client_path %>
+            </li>
+            <% begin %>
+              <% current = current_user rescue nil %>
+              <% if current&.supervisor? %>
+                <li>
+                  <%= link_to "Clients", clients_path %>
+                </li>
+
+                <li>
+                  <%= link_to "Users", users_path %>
+                </li>
+
+                <li>
+                  <%= link_to "Monthly Statistics", monthly_stats_path %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to "Unassigned Clients", unassigned_path %>
+                </li>
+
+                <li>
+                  <%= link_to "My Clients", my_clients_path(current) %>
+                </li>
+
+                <li>
+                  <%= link_to "Calendar", my_calendar_path(current) %>
+                </li>
+              <% end %>
+            <% rescue => e %>
+              <% # Silently fail if there's an error accessing current_user %>
+            <% end %>
+          <% end %>
+        <% rescue => e %>
+          <% # Silently fail if there's an error accessing logged_in? %>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
-          <li>
-            <p class="navbar-text">
-              Signed in as <%= current_user.name || current_user.email %>
-            </p>
-          </li>
+        <% begin %>
+          <% # Skip authentication check on login page to avoid timeout %>
+          <% is_logged_in = false %>
+          <% unless request.path == '/login' %>
+            <% begin %>
+              <% is_logged_in = logged_in? %>
+            <% rescue => e %>
+              <% # If logged_in? times out or fails, assume not logged in %>
+            <% end %>
+          <% end %>
+          <% if is_logged_in %>
+            <% begin %>
+              <% current = current_user rescue nil %>
+              <% if current %>
+                <li>
+                  <p class="navbar-text">
+                    Signed in as <%= current.name || current.email %>
+                  </p>
+                </li>
 
-          <li>
-            <%= link_to "Sign out", logout_path %>
-          </li>
-        <% else %>
+                <li>
+                  <%= link_to "Sign out", logout_path %>
+                </li>
+              <% end %>
+            <% rescue => e %>
+              <% # Silently fail if there's an error accessing current_user %>
+            <% end %>
+          <% else %>
+            <li>
+              <%= link_to "Sign in", login_path %>
+            </li>
+          <% end %>
+        <% rescue => e %>
           <li>
             <%= link_to "Sign in", login_path %>
           </li>

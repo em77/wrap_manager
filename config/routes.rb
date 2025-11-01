@@ -4,12 +4,18 @@ Rails.application.routes.draw do
   if ENV['ACME_KEY'] && ENV['ACME_TOKEN']
     get ".well-known/acme-challenge/#{ ENV["ACME_TOKEN"] }" =>
       proc { [200, {}, [ ENV["ACME_KEY"] ] ] }
-  else
-    ENV.each do |var, _|
-      next unless var.start_with?("ACME_TOKEN_")
+  end
+  
+  # Handle multiple ACME tokens more efficiently
+  # Only process this at load time, not on each request
+  if ENV.keys.grep(/^ACME_TOKEN_/).any?
+    ENV.keys.grep(/^ACME_TOKEN_/).each do |var|
       number = var.sub(/ACME_TOKEN_/, '')
-      get ".well-known/acme-challenge/#{ ENV["ACME_TOKEN_#{number}"] }" =>
-        proc { [200, {}, [ ENV["ACME_KEY_#{number}"] ] ] }
+      if ENV["ACME_KEY_#{number}"]
+        token = ENV["ACME_TOKEN_#{number}"]
+        key = ENV["ACME_KEY_#{number}"]
+        get ".well-known/acme-challenge/#{token}" => proc { [200, {}, [key]] } if token && key
+      end
     end
   end
 

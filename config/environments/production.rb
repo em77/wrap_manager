@@ -96,6 +96,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  # Database connection timeout settings
+  # Reduced timeout to fail faster and prevent hanging
+  config.active_record.connection_pool_timeout = 3
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
