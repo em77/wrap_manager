@@ -5,10 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.7.7'
+ruby '3.1.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -18,7 +18,7 @@ gem 'rack-timeout'
 gem 'sass-rails', '~> 5.0'
 
 gem 'bootstrap-sass'
-gem 'bootstrap_form', '~> 2.4'
+gem 'bootstrap_form', '~> 4.0'
 gem 'simple_calendar'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
@@ -61,8 +61,8 @@ group :development, :test do
   # gem 'byebug', platform: :mri
 
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'capybara', '~> 2.13'
+  gem 'factory_bot_rails'
+  gem 'capybara', '~> 3.0'
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
@@ -76,11 +76,12 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 4.0.0'
+  gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # Disabled due to compatibility issues with Rails 6.1
+  # gem 'spring', '>= 4.0'
+  # gem 'spring-watcher-listen', '~> 2.1.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

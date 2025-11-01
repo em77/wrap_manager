@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def zero_users_or_authenticated
     unless User.count == 0 || current_user
       redirect_to root_path
-      return false
+      return
     end
   end
 

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  protect_from_forgery with: :exception unless Rails.env.test?
+  protect_from_forgery with: :exception
 
   def set_referer
     session[:return_to] ||= request.referer

@@ -1,5 +1,4 @@
 if Rails.env.production?
-  Rack::Timeout.timeout = 25  # seconds
-else
-  Rack::Timeout.timeout = 0  # disable
+  Rack::Timeout.service_timeout = 25  # seconds
 end
+# Note: rack-timeout is disabled by default in development/test environments

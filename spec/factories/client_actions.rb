@@ -1,6 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :client_action do
-    notes "Test note."
-    id 1
+    notes { "Test note." }
   end
 end

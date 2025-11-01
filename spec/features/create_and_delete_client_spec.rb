@@ -11,11 +11,12 @@ feature "Create and delete client" do
     fill_in "Last name", with: client.last_name
     find_button("submit_client").click
     expect(page).to have_content "New client added to unassigned list"
+    saved_client = Client.last
     visit logout_path
     
     signin(supervisor.email, "password")
     visit clients_path
-    find_link("delete-client-button_#{client.id}").click
+    find_link("delete-client-button_#{saved_client.id}").click
 
     expect(page).to have_content "Client deleted"
   end

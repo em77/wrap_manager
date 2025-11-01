@@ -1,9 +1,7 @@
 #!/usr/bin/env ruby
-begin
-  load File.expand_path('../spring', __FILE__)
-rescue LoadError => e
-  raise unless e.message.include?('spring')
-end
-require_relative '../config/boot'
-require 'rake'
+# Temporarily disabled Spring due to compatibility issues with Rails 6.1
+# To re-enable, uncomment the line below:
+# load File.expand_path("spring", __dir__)
+require_relative "../config/boot"
+require "rake"
 Rake.application.run
