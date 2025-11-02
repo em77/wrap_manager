@@ -43,11 +43,14 @@ namespace :db do
     puts "4. Testing query performance..."
     queries = [
       "SELECT COUNT(*) FROM users",
-      "SELECT * FROM users LIMIT 1",
-      "SELECT * FROM remember_tokens LIMIT 1" rescue nil
+      "SELECT * FROM users LIMIT 1"
     ]
+    # Add remember_tokens query if table exists
+    if ActiveRecord::Base.connection.table_exists?('remember_tokens')
+      queries << "SELECT * FROM remember_tokens LIMIT 1"
+    end
     
-    queries.compact.each do |query|
+    queries.each do |query|
       begin
         start_time = Time.now
         ActiveRecord::Base.connection.execute(query)
