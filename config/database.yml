@@ -87,9 +87,8 @@ production:
   url: <%= ENV['DATABASE_URL'] %>
   # Pool size for Heroku
   pool: <%= [ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 2, 5].max %>
-  # Connection timeout for initial connection (pg gem parameter)
-  # Increased from 10 to 30 seconds as Rails 6.1 connection establishment seems slower
-  # This prevents hanging for 66+ seconds if the database is unreachable
-  connect_timeout: <%= ENV.fetch("DATABASE_CONNECT_TIMEOUT", 30) %>
+  # Connection timeout removed - let pg gem use its default (usually no timeout or much longer)
+  # Rails 6.1 seems to have slower connection establishment, and explicit timeout was too aggressive
+  # connect_timeout: <%= ENV.fetch("DATABASE_CONNECT_TIMEOUT", 30) %>
   # Reap stale connections every 10 seconds to avoid hanging connections
   reaping_frequency: 10

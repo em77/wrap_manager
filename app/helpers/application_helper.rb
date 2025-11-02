@@ -9,25 +9,29 @@ module ApplicationHelper
   end
 
   # Override will_paginate to use Bootstrap renderer and handle Rails 6.1 signature changes
-  # Rails 6.1 may pass 4 arguments (collection, options, block, template_context) but
-  # will_paginate only expects 2 (collection, options)
-  def will_paginate(collection = nil, options = {}, *extra_args, &block)
+  # Rails 6.1 may pass extra arguments (collection, options, block, template_context)
+  # but will_paginate only expects (collection, options)
+  def will_paginate(collection = nil, options = nil, *extra_args, &block)
     # Handle case where first argument is actually options hash
     if collection.is_a?(Hash) && !collection.is_a?(ActiveRecord::Relation)
       options, collection = collection, nil
     end
 
     # Set Bootstrap renderer if not already set
-    options = options.dup if options
+    options = options.dup if options.is_a?(Hash)
     options ||= {}
     options[:renderer] ||= WillPaginate::ActionView::BootstrapLinkRenderer
 
-    # Call parent with only collection and options (will_paginate only accepts 2 args)
-    # Rails 6.1 may pass extra args, but we ignore them
+    # Find the original will_paginate method from WillPaginate::ActionView::Helper
+    # This needs to be done at runtime because in production eager loading may change module order
+    helper_module = WillPaginate::ActionView::Helper
+    original_method = helper_module.instance_method(:will_paginate)
+
+    # Call the original method with only collection and options (not the extra Rails 6.1 args)
     if collection
-      super(collection, options)
+      original_method.bind(self).call(collection, options)
     else
-      super(options)
+      original_method.bind(self).call(options)
     end
   end
 
