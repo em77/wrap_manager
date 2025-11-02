@@ -16,11 +16,28 @@ module WillPaginateBootstrapOverride
 
     # Completely bypass the original method and render manually
     # This is hacky but it avoids all the argument mismatch issues
-    return '' unless collection
+    # Based on will_paginate source code in view_helpers.rb
+    return nil unless collection && collection.respond_to?(:total_pages) && collection.total_pages > 1
     
-    # Use WillPaginate's internal rendering directly
-    renderer_class = options[:renderer] || WillPaginate::ActionView::BootstrapLinkRenderer
-    renderer = renderer_class.new(collection, self, options)
+    # Merge with global pagination options
+    options = WillPaginate::ViewHelpers.pagination_options.merge(options)
+    
+    # Set default labels if not present
+    options[:previous_label] ||= I18n.t('will_paginate.previous_label', default: '&#8592; Previous')
+    options[:next_label] ||= I18n.t('will_paginate.next_label', default: 'Next &#8594;')
+    
+    # Get renderer instance (same logic as original)
+    renderer = case options[:renderer]
+    when nil
+      WillPaginate::ActionView::BootstrapLinkRenderer.new
+    when String
+      options[:renderer].constantize.new
+    when Class then options[:renderer].new
+    else options[:renderer]
+    end
+    
+    # Prepare and render (same as original)
+    renderer.prepare(collection, options, self)
     renderer.to_html.html_safe
   end
 end
