@@ -82,10 +82,29 @@ test:
 #
 production:
   <<: *default
+  # Use explicit config like working Rails 6 app, but parse from DATABASE_URL
+  # This avoids Rails 6.1 DATABASE_URL parsing issues that cause timeouts
+  <% 
+    db_url = ENV['DATABASE_URL'] || ''
+    if db_url && !db_url.empty?
+      require 'uri'
+      uri = URI.parse(db_url)
+  %>
+  host: <%= uri.host %>
+  port: <%= uri.port || 5432 %>
+  database: <%= uri.path[1..] %>
+  username: <%= uri.user %>
+  password: <%= uri.password %>
+  <% else %>
+  # Fallback to explicit env vars if DATABASE_URL not set
   database: wrap_manager_production
   username: wrap_manager
   password: <%= ENV['WRAP_MANAGER_DATABASE_PASSWORD'] %>
-  # Connection parameters to pass to pg gem
-  # connect_timeout: maximum time to wait for initial connection (seconds)
-  # This should help identify if connection establishment is the issue
-  connect_timeout: 10
+  <% end %>
+  # Connection timeout for initial connection (pg gem parameter)
+  # This prevents hanging for 66+ seconds if the database is unreachable
+  connect_timeout: <%= ENV.fetch("DATABASE_CONNECT_TIMEOUT", 20) %>
+  # Pool size: Heroku recommends matching RAILS_MAX_THREADS
+  # However, with RAILS_MAX_THREADS=1 and concurrent DB queries (remember_me),
+  # we need a slightly larger pool (minimum 3-5 for safety)
+  pool: <%= [ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 2, 5].max %>
