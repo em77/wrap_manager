@@ -1,27 +1,27 @@
 module WillPaginateBootstrapOverride
-  # Override will_paginate to handle Rails 6.1 argument mismatch
-  # Rails 6.1 passes 4 arguments (collection, options, block, template_context)
-  # but will_paginate only expects (collection, options)
+  # HACK: Override will_paginate to handle Rails 6.1 argument mismatch
+  # Rails 6.1 passes 4 arguments but will_paginate only expects 2
+  # We'll completely bypass the original method and implement it ourselves
   def will_paginate(collection = nil, options = nil, *extra_args, &block)
+    # Ignore all the extra Rails 6.1 args
     # Handle case where first argument is actually options hash
     if collection.is_a?(Hash) && !collection.is_a?(ActiveRecord::Relation)
       options, collection = collection, nil
     end
 
-    # Set Bootstrap renderer if not already set
+    # Set Bootstrap renderer
     options = options.dup if options.is_a?(Hash)
     options ||= {}
     options[:renderer] ||= WillPaginate::ActionView::BootstrapLinkRenderer
 
-    # Call the original method from WillPaginate::ViewHelpers with only collection and options
-    # Use method to get the original implementation
-    original = WillPaginate::ViewHelpers.instance_method(:will_paginate)
+    # Completely bypass the original method and render manually
+    # This is hacky but it avoids all the argument mismatch issues
+    return '' unless collection
     
-    if collection
-      original.bind(self).call(collection, options)
-    else
-      original.bind(self).call(options)
-    end
+    # Use WillPaginate's internal rendering directly
+    renderer_class = options[:renderer] || WillPaginate::ActionView::BootstrapLinkRenderer
+    renderer = renderer_class.new(collection, self, options)
+    renderer.to_html.html_safe
   end
 end
 
