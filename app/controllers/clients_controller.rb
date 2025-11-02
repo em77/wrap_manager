@@ -64,7 +64,7 @@ class ClientsController < ApplicationController
   end
 
   def add_user_to_client
-    client = Client.find_by_id(params.require([:client_id]))
+    client = Client.find_by(id: params.require([:client_id]))
     client.user_id = current_user.id
     client.save
     flash[:success] = "#{client.first_name + " " + client.last_name} has been" +
@@ -73,7 +73,7 @@ class ClientsController < ApplicationController
   end
 
   def remove_user_from_client
-    client = Client.find_by_id(params.require([:client_id]))
+    client = Client.find_by(id: params.require([:client_id]))
     authorize client
     client.user_id = nil
     client.save

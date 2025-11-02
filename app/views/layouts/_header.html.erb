@@ -25,35 +25,35 @@
             <% end %>
           <% end %>
           <% if is_logged_in %>
-            <li>
-              <%= link_to "New Client", new_client_path %>
-            </li>
+          <li>
+            <%= link_to "New Client", new_client_path %>
+          </li>
             <% begin %>
               <% current = current_user rescue nil %>
               <% if current&.supervisor? %>
-                <li>
-                  <%= link_to "Clients", clients_path %>
-                </li>
+            <li>
+              <%= link_to "Clients", clients_path %>
+            </li>
 
-                <li>
-                  <%= link_to "Users", users_path %>
-                </li>
+            <li>
+              <%= link_to "Users", users_path %>
+            </li>
 
-                <li>
-                  <%= link_to "Monthly Statistics", monthly_stats_path %>
-                </li>
-              <% else %>
-                <li>
-                  <%= link_to "Unassigned Clients", unassigned_path %>
-                </li>
+            <li>
+              <%= link_to "Monthly Statistics", monthly_stats_path %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "Unassigned Clients", unassigned_path %>
+            </li>
 
-                <li>
+            <li>
                   <%= link_to "My Clients", my_clients_path(current) %>
-                </li>
+            </li>
 
-                <li>
+            <li>
                   <%= link_to "Calendar", my_calendar_path(current) %>
-                </li>
+            </li>
               <% end %>
             <% rescue => e %>
               <% # Silently fail if there's an error accessing current_user %>
@@ -78,20 +78,20 @@
             <% begin %>
               <% current = current_user rescue nil %>
               <% if current %>
-                <li>
-                  <p class="navbar-text">
+          <li>
+            <p class="navbar-text">
                     Signed in as <%= current.name || current.email %>
-                  </p>
-                </li>
+            </p>
+          </li>
 
-                <li>
-                  <%= link_to "Sign out", logout_path %>
-                </li>
+          <li>
+            <%= link_to "Sign out", logout_path %>
+          </li>
               <% end %>
             <% rescue => e %>
               <% # Silently fail if there's an error accessing current_user %>
             <% end %>
-          <% else %>
+        <% else %>
             <li>
               <%= link_to "Sign in", login_path %>
             </li>
