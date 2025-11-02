@@ -22,9 +22,9 @@ module ApplicationHelper
     options ||= {}
     options[:renderer] ||= WillPaginate::ActionView::BootstrapLinkRenderer
 
-    # Find the original will_paginate method from WillPaginate::ActionView::Helper
+    # Find the original will_paginate method from WillPaginate::ViewHelpers
     # This needs to be done at runtime because in production eager loading may change module order
-    helper_module = WillPaginate::ActionView::Helper
+    helper_module = WillPaginate::ViewHelpers
     original_method = helper_module.instance_method(:will_paginate)
 
     # Call the original method with only collection and options (not the extra Rails 6.1 args)
