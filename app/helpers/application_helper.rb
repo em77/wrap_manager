@@ -37,9 +37,13 @@ module WillPaginateBootstrapOverride
     end
     
     # Prepare and render (same as original)
-    # Use __send__ to bypass any Rails 6.1 method wrapping that might add extra args
-    renderer.__send__(:prepare, collection, options, self)
-    output = renderer.__send__(:to_html)
+    # Use method.bind(...).call(...) to completely bypass Rails 6.1 method wrapping
+    prepare_method = renderer.method(:prepare)
+    prepare_method.call(collection, options, self)
+    
+    to_html_method = renderer.method(:to_html)
+    output = to_html_method.call()
+    
     output = output.html_safe if output.respond_to?(:html_safe)
     output
   end
