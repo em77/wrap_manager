@@ -87,3 +87,8 @@ production:
   url: <%= ENV['DATABASE_URL'] %>
   # Pool size for Heroku
   pool: <%= [ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 2, 5].max %>
+  # Connection timeout for initial connection (pg gem parameter)
+  # This prevents hanging for 66+ seconds if the database is unreachable
+  connect_timeout: <%= ENV.fetch("DATABASE_CONNECT_TIMEOUT", 10) %>
+  # Reap stale connections every 10 seconds to avoid hanging connections
+  reaping_frequency: 10

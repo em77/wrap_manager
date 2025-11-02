@@ -6,8 +6,15 @@ Rails.application.config.after_initialize do
     begin
       # Establish a connection to the database during boot
       # This prevents the 66+ second delay on the first request
-      ActiveRecord::Base.connection.execute("SELECT 1")
-      Rails.logger.info "Database connection established at boot time"
+      # Also verify the connection is actually working
+      conn = ActiveRecord::Base.connection
+      conn.execute("SELECT 1")
+      # Verify connection is active (not stale)
+      unless conn.active?
+        conn.reconnect!
+        conn.execute("SELECT 1")
+      end
+      Rails.logger.info "Database connection established and verified at boot time"
     rescue => e
       Rails.logger.warn "Failed to establish database connection at boot: #{e.message}"
       # Don't fail boot if connection fails - it will retry on first request
