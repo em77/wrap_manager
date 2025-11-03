@@ -12,7 +12,7 @@ class ClientsController < ApplicationController
     @clients = Client.all
     authorize Client
     @clients = @clients.reorder("last_name ASC")
-    @clients = @clients.paginate(page: params[:page])
+    @clients = @clients.page(params[:page])
   end
 
   def show
@@ -60,7 +60,7 @@ class ClientsController < ApplicationController
   def unassigned
     @unassigned_clients = Client.where(user_id: nil)
     @unassigned_clients = @unassigned_clients.reorder("last_name ASC")
-    @unassigned_clients = @unassigned_clients.paginate(page: params[:page])
+    @unassigned_clients = @unassigned_clients.page(params[:page])
   end
 
   def add_user_to_client

@@ -48,9 +48,7 @@ gem 'sorcery'
 gem 'pundit'
 
 # Pagination
-gem 'will_paginate'
-# will_paginate integration with bootstrap
-gem 'bootstrap-will_paginate', '~> 1.0.0'
+gem 'kaminari'
 
 
 # Use Capistrano for deployment
