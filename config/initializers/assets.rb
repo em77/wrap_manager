@@ -12,3 +12,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Explicitly precompile flatpickr as a separate asset
+Rails.application.config.assets.precompile += %w( flatpickr.js flatpickr.css )
