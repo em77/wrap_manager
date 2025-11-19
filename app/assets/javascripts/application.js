@@ -17,12 +17,6 @@
 //= require bootstrap-sprockets
 //= require moment
 //= require_tree .
-//= require flatpickr
-
-// Ensure flatpickr is available on window
-if (typeof flatpickr !== 'undefined' && !window.flatpickr) {
-  window.flatpickr = flatpickr;
-}
 
 // Initialize flatpickr for date and time picking
 (function() {
