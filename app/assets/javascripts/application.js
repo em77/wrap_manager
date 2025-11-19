@@ -16,5 +16,5 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require moment
-//= require_tree .
 //= require flatpickr
+//= require_tree .
