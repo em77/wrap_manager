@@ -1,6 +1,6 @@
 # Initialize flatpickr for date and time picking
 initializeFlatpickr = (attempts = 0) ->
-  maxAttempts = 150  # Increased retries
+  maxAttempts = 200  # Increased retries
   
   # Check multiple ways flatpickr might be available
   fp = null
@@ -10,6 +10,9 @@ initializeFlatpickr = (attempts = 0) ->
     fp = flatpickr
   else if typeof global != 'undefined' && global.flatpickr
     fp = global.flatpickr
+  # Also check if it's available via the compiled bundle
+  else if window && window.flatpickr
+    fp = window.flatpickr
   
   if fp && typeof fp == 'function'
     # Library is available, initialize
@@ -30,8 +33,11 @@ initializeFlatpickr = (attempts = 0) ->
         defaultHour: 12
         defaultMinute: 0
   else if attempts < maxAttempts
-    # Retry after delay
+    # Retry after delay - flatpickr might load later
     setTimeout (-> initializeFlatpickr(attempts + 1)), 100
+  else
+    # Last resort: log error for debugging
+    console.error "Flatpickr library not found after #{maxAttempts} attempts"
 
 # Initialize on document ready
 $ ->
