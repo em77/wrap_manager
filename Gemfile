@@ -22,6 +22,7 @@ gem 'bootstrap_form', '~> 4.0'
 gem 'simple_calendar'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
+gem 'flatpickr', '~> 4.6.13'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

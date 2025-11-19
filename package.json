@@ -1,7 +1,5 @@
 {
   "name": "railsdiff",
   "private": true,
-  "dependencies": {
-    "flatpickr": "^4.6.13"
-  }
+  "dependencies": {}
 }
