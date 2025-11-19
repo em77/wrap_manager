@@ -20,40 +20,54 @@
 //= require_tree .
 
 // Initialize flatpickr for date and time picking
-window.initializeFlatpickr = function() {
-  var fp = window.flatpickr || flatpickr;
-  
-  if (!fp || typeof fp !== 'function') {
-    return;
-  }
-  
-  var elements = document.querySelectorAll(".datetimepicker");
-  
-  for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
+(function() {
+  function initializeFlatpickr() {
+    // Wait for flatpickr to be available
+    var fp = window.flatpickr || (typeof flatpickr !== 'undefined' ? flatpickr : null);
     
-    if (element._flatpickr) {
-      element._flatpickr.destroy();
+    if (!fp || typeof fp !== 'function') {
+      // Retry after a short delay if flatpickr isn't ready yet
+      setTimeout(initializeFlatpickr, 50);
+      return;
     }
     
-    fp(element, {
-      enableTime: true,
-      dateFormat: "Y-m-d h:i K",
-      time_24hr: false,
-      minuteIncrement: 15,
-      allowInput: true,
-      defaultHour: 12,
-      defaultMinute: 0
-    });
+    var elements = document.querySelectorAll(".datetimepicker");
+    
+    for (var i = 0; i < elements.length; i++) {
+      var element = elements[i];
+      
+      // Skip if already initialized
+      if (element._flatpickr) {
+        continue;
+      }
+      
+      try {
+        fp(element, {
+          enableTime: true,
+          dateFormat: "Y-m-d h:i K",
+          time_24hr: false,
+          minuteIncrement: 15,
+          allowInput: true,
+          defaultHour: 12,
+          defaultMinute: 0
+        });
+      } catch (e) {
+        // Silently fail if initialization fails
+      }
+    }
   }
-};
-
-// Initialize on multiple events
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', window.initializeFlatpickr);
-} else {
-  window.initializeFlatpickr();
-}
-
-document.addEventListener('turbolinks:load', window.initializeFlatpickr);
-window.addEventListener('load', window.initializeFlatpickr);
+  
+  // Initialize on DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeFlatpickr);
+  } else {
+    // DOM already loaded, run immediately
+    initializeFlatpickr();
+  }
+  
+  // Initialize on Turbolinks navigation
+  document.addEventListener('turbolinks:load', initializeFlatpickr);
+  
+  // Fallback: initialize on window load
+  window.addEventListener('load', initializeFlatpickr);
+})();
