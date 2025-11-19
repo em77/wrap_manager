@@ -8,6 +8,49 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      (function() {
+        function initializeFlatpickr() {
+          if (typeof window.flatpickr !== 'function') {
+            setTimeout(initializeFlatpickr, 50);
+            return;
+          }
+          
+          var elements = document.querySelectorAll(".datetimepicker");
+          
+          for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+            
+            if (element._flatpickr) {
+              continue;
+            }
+            
+            try {
+              window.flatpickr(element, {
+                enableTime: true,
+                dateFormat: "Y-m-d h:i K",
+                time_24hr: false,
+                minuteIncrement: 15,
+                allowInput: true,
+                defaultHour: 12,
+                defaultMinute: 0
+              });
+            } catch (e) {
+              console.error("Flatpickr initialization error:", e);
+            }
+          }
+        }
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initializeFlatpickr);
+        } else {
+          initializeFlatpickr();
+        }
+        
+        document.addEventListener('turbolinks:load', initializeFlatpickr);
+        window.addEventListener('load', initializeFlatpickr);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
 
