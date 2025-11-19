@@ -1,23 +1,17 @@
 # Initialize flatpickr for date and time picking
-initializeFlatpickr = (attempts = 0) ->
-  maxAttempts = 200  # Increased retries
-  
-  # Check multiple ways flatpickr might be available
-  fp = null
-  if typeof window != 'undefined' && window.flatpickr
-    fp = window.flatpickr
-  else if typeof flatpickr != 'undefined'
-    fp = flatpickr
-  else if typeof global != 'undefined' && global.flatpickr
-    fp = global.flatpickr
-  # Also check if it's available via the compiled bundle
-  else if window && window.flatpickr
-    fp = window.flatpickr
+initializeFlatpickr = ->
+  # Use flatpickr directly since we know it's available
+  fp = window.flatpickr || flatpickr
   
   if fp && typeof fp == 'function'
-    # Library is available, initialize
-    $(".datetimepicker").each ->
-      element = this
+    # Find all datetimepicker elements and initialize
+    elements = document.querySelectorAll(".datetimepicker")
+    
+    if elements.length == 0
+      console.log "No .datetimepicker elements found"
+      return
+    
+    elements.forEach (element) ->
       # Destroy existing instance if present
       if element._flatpickr
         element._flatpickr.destroy()
@@ -32,12 +26,10 @@ initializeFlatpickr = (attempts = 0) ->
         allowInput: true
         defaultHour: 12
         defaultMinute: 0
-  else if attempts < maxAttempts
-    # Retry after delay - flatpickr might load later
-    setTimeout (-> initializeFlatpickr(attempts + 1)), 100
+      
+      console.log "Flatpickr initialized on element", element
   else
-    # Last resort: log error for debugging
-    console.error "Flatpickr library not found after #{maxAttempts} attempts"
+    console.error "Flatpickr function not available"
 
 # Initialize on document ready
 $ ->
