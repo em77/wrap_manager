@@ -1,17 +1,29 @@
-# Initialize datetimepicker on both Turbolinks and regular page loads
-initializeDatetimePicker = ->
-  if typeof $.fn.datetimepicker != 'undefined'
-    # Destroy any existing instances to prevent duplicates
+# Initialize datetimepicker - retry until library is available
+initializeDatetimePicker = (attempts = 0) ->
+  maxAttempts = 100
+  
+  if typeof $ != 'undefined' && $ && typeof $.fn != 'undefined' && typeof $.fn.datetimepicker != 'undefined'
+    # Library is available, initialize
     $(".datetimepicker").each ->
-      if $(this).data('DateTimePicker')
-        $(this).data('DateTimePicker').destroy()
+      existing = $(this).data('DateTimePicker')
+      existing.destroy() if existing
     
-    # Initialize datetimepicker
     $(".datetimepicker").datetimepicker(
-      stepping: 15, format: "YYYY-MM-DD hh:mm A")
-  else
-    # Retry after a short delay if datetimepicker isn't loaded yet
-    setTimeout initializeDatetimePicker, 100
+      stepping: 15
+      format: "YYYY-MM-DD hh:mm A"
+    )
+  else if attempts < maxAttempts
+    # Retry after delay
+    setTimeout (-> initializeDatetimePicker(attempts + 1)), 100
 
-$(document).on "turbolinks:load", initializeDatetimePicker
-$(document).ready initializeDatetimePicker
+# Initialize on document ready
+$ ->
+  initializeDatetimePicker()
+
+# Initialize on Turbolinks navigation
+$(document).on "turbolinks:load", ->
+  initializeDatetimePicker()
+
+# Fallback: initialize on window load
+$(window).on "load", ->
+  initializeDatetimePicker()
