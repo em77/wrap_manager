@@ -18,3 +18,42 @@
 //= require moment
 //= require flatpickr
 //= require_tree .
+
+// Initialize flatpickr for date and time picking
+window.initializeFlatpickr = function() {
+  var fp = window.flatpickr || flatpickr;
+  
+  if (!fp || typeof fp !== 'function') {
+    return;
+  }
+  
+  var elements = document.querySelectorAll(".datetimepicker");
+  
+  for (var i = 0; i < elements.length; i++) {
+    var element = elements[i];
+    
+    if (element._flatpickr) {
+      element._flatpickr.destroy();
+    }
+    
+    fp(element, {
+      enableTime: true,
+      dateFormat: "Y-m-d h:i K",
+      time_24hr: false,
+      minuteIncrement: 15,
+      allowInput: true,
+      defaultHour: 12,
+      defaultMinute: 0
+    });
+  }
+};
+
+// Initialize on multiple events
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', window.initializeFlatpickr);
+} else {
+  window.initializeFlatpickr();
+}
+
+document.addEventListener('turbolinks:load', window.initializeFlatpickr);
+window.addEventListener('load', window.initializeFlatpickr);
