@@ -34,7 +34,7 @@ class ClientsController < ApplicationController
       redirect_to(unassigned_path)
     else
       flash[:error] = @client.errors.full_messages.to_sentence
-      redirect_to(session.delete(:return_to))
+      redirect_to root_path
     end
   end
 
@@ -54,7 +54,7 @@ class ClientsController < ApplicationController
   def destroy
     client.destroy
     flash[:error] = "Client deleted"
-    redirect_to(session.delete(:return_to))
+    redirect_to root_path
   end
 
   def unassigned
@@ -81,7 +81,7 @@ class ClientsController < ApplicationController
     flash[:error] = "#{client.first_name + " " + client.last_name}" +
       " has been unassigned from you and any" +
       " future appointments with them have been deleted."
-    redirect_to(session.delete(:return_to))
+    redirect_to root_path
   end
 
   private

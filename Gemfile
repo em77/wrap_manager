@@ -81,6 +81,7 @@ group :development do
   # Disabled due to compatibility issues with Rails 6.1
   # gem 'spring', '>= 4.0'
   # gem 'spring-watcher-listen', '~> 2.1.0'
+  gem "byebug"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

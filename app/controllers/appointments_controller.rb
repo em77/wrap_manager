@@ -30,7 +30,7 @@ class AppointmentsController < ApplicationController
         notice: "Appointment created successfully")
     else
       flash[:error] = @appointment.errors.full_messages.to_sentence
-      redirect_to(session.delete(:return_to))
+      redirect_to root_path
     end
   end
 
