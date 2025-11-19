@@ -16,14 +16,19 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require moment
-//= require flatpickr
 //= require_tree .
+//= require flatpickr
+
+// Ensure flatpickr is available on window
+if (typeof flatpickr !== 'undefined' && !window.flatpickr) {
+  window.flatpickr = flatpickr;
+}
 
 // Initialize flatpickr for date and time picking
 (function() {
   function initializeFlatpickr() {
     // Wait for flatpickr to be available
-    var fp = window.flatpickr || (typeof flatpickr !== 'undefined' ? flatpickr : null);
+    var fp = window.flatpickr;
     
     if (!fp || typeof fp !== 'function') {
       // Retry after a short delay if flatpickr isn't ready yet
